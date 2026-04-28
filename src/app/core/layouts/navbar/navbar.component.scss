@@ -1,0 +1,50 @@
+#navbar {
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
+    width: 100%;
+    padding: 0 1rem;
+    background-color: var(--primary-dark);
+    z-index: 100;
+    #medical-logo {
+        width: 5rem;
+    }
+    .menu-btn, .close-btn {
+        display: flex;
+        align-items: center;
+        color: var(--text-terciary);
+        font-size: 2rem;
+        width: 2rem;
+    } 
+}
+.menu {
+    position: fixed;
+    top: -25rem;
+    left: 0;
+    background-color: var(--primary-dark);
+    width: 100vw;
+    z-index: 99;
+    .menu-list {
+        padding: 0 0 1rem 0;
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            font-size: var(--text-base);
+            color: var(--text-terciary);
+            width: 100%;
+            padding: 1rem;
+        }
+    }
+    .logout-btn {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        font-size: var(--text-base);
+        color: var(--text-terciary);
+        width: 100%;
+        padding: 1rem;
+    }
+}

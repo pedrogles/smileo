@@ -1,0 +1,56 @@
+#aside {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 18rem;
+    height: 100vh;
+    background-color: var(--primary-dark);
+    overflow-y: auto;
+    overflow-x: hidden;
+    .up-section {
+        display: flex;
+        flex-direction: column;
+        .logo-article {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: .8rem;
+            padding: 2rem 1rem;
+            #medical-logo {
+                width: 12rem;
+
+            }
+        }
+        .menu {
+            width: 100%;
+            .menu-list {
+                padding: 1rem 0;
+                .menu-item {
+                    display: flex;
+                    align-items: center;
+                    gap: .5rem;
+                    font-size: var(--text-base);
+                    color: var(--text-terciary);
+                    width: 100%;
+                    padding: 1rem;
+                }
+                .menu-item:hover {
+                    background-color: var(--primary-hover);
+                }
+            }
+        }
+    }
+    .down-section .logout-btn {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        font-size: var(--text-base);
+        color: var(--text-terciary);
+        width: 100%;
+        padding: 1rem;
+    }
+    .down-section .logout-btn:hover {
+        background-color: var(--primary-hover);
+    }
+}
