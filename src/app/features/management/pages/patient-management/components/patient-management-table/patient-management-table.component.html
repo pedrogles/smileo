@@ -1,0 +1,8 @@
+@if(isLoading) {
+  <mat-spinner class="spinner" diameter="20"></mat-spinner>
+} @else {
+  <app-data-table 
+    [dataSource]="patients" 
+    [columnsConfig]="columnsConfig">
+  </app-data-table>
+}
