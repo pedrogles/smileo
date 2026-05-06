@@ -1,0 +1,17 @@
+// Menu customization
+.mat-menu-custom-sidebar .mat-mdc-menu-item,
+.mat-menu-custom-navbar .mat-mdc-menu-item {
+  padding: 0rem 1.5rem;
+}
+
+// Sidebar menu
+.mat-menu-custom-sidebar.mat-mdc-menu-panel {
+  min-width: 288px;
+  border-radius: 0px;
+}
+
+// Navbar menu
+.mat-menu-custom-navbar.mat-mdc-menu-panel {
+  min-width: 100vw;
+  border-radius: 0px;
+}

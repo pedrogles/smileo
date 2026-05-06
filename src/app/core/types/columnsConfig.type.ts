@@ -1,0 +1,1 @@
+export type ColumnsConfigType = { value: string, column: string, type: string };

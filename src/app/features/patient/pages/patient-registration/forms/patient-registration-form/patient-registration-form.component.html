@@ -1,0 +1,120 @@
+@if(isLoading) {
+    <mat-spinner class="spinner" diameter="20"></mat-spinner>
+} @else {
+    <form [formGroup]="patientForm" class="form" (ngSubmit)="onSubmit()">
+        <fieldset class="form-fieldset">
+            <app-form-section-header 
+                title="Dados Pessoais" 
+                hint="Informe os dados pessoais do paciente.">
+            </app-form-section-header>
+            <div formGroupName="personalData" class="form-inputs">
+                <!-- Name -->
+                <mat-form-field class="form-field">
+                    <mat-label>Nome do paciente</mat-label>
+                    <input matInput formControlName="name" placeholder="Digite o nome do paciente...">
+                    <mat-error *ngIf="personalDataGroup.get('name')?.errors?.['required']">
+                        O campo nome do paciente é obrigatório.
+                    </mat-error>  
+                    <mat-error *ngIf="personalDataGroup.get('name')?.errors?.['minlength']">
+                        O nome do paciente deve ter no mínimo 6 caracteres.
+                    </mat-error>  
+                </mat-form-field>
+                <!-- Cpf -->
+                <mat-form-field class="form-field">
+                    <mat-label>Cpf</mat-label>
+                    <input matInput formControlName="cpf" mask="000.000.000-00" placeholder="Digite seu cpf...">
+                    <mat-error *ngIf="personalDataGroup.get('cpf')?.errors?.['required']">
+                        O campo cpf é obrigatório.
+                    </mat-error>  
+                    <mat-error *ngIf="personalDataGroup.get('cpf')?.errors?.['cpfMismatch']">
+                        O cpf informado não é válido. Verifique se digitou corretamente.
+                    </mat-error>  
+                </mat-form-field>
+                <!-- Birth -->
+                <mat-form-field class="form-field">
+                    <mat-label>Data de nascimento</mat-label>
+                    <input matInput formControlName="birth" type="date">
+                    <mat-error *ngIf="personalDataGroup.get('birth')?.errors?.['required']">
+                        O campo data de nascimento é obrigatório.
+                    </mat-error>  
+                    <mat-error *ngIf="personalDataGroup.get('birth')?.errors?.['maxlength']">
+                        A data deve ter no máximo 8 caracteres.
+                    </mat-error>  
+                </mat-form-field>
+            </div>
+        </fieldset>
+        <fieldset class="form-fieldset">
+            <app-form-section-header 
+                title="Contato" 
+                hint="Informe os dados de contato do paciente.">
+            </app-form-section-header>
+            <div formGroupName="contact" class="form-inputs">
+                <!-- Phone -->
+                <mat-form-field class="form-field">
+                    <mat-label>Telefone</mat-label>
+                    <input matInput formControlName="phone" mask="(00)00000-0000" type="tel">
+                    <mat-error *ngIf="contactGroup.get('phone')?.errors?.['required']">
+                        O campo telefone é obrigatório.
+                    </mat-error>  
+                    <mat-error *ngIf="contactGroup.get('phone')?.errors?.['minlength']">
+                        O numero informado não é válido. Verifique se digitou corretamente.
+                    </mat-error>  
+                </mat-form-field>
+                <!-- Email -->
+                <mat-form-field class="form-field">
+                    <mat-label>E-mail</mat-label>
+                    <input matInput formControlName="email" placeholder="Digite seu e-mail...">
+                    <mat-error *ngIf="contactGroup.get('email')?.errors?.['required']">
+                        O campo email é obrigatório.
+                    </mat-error>  
+                    <mat-error *ngIf="contactGroup.get('email')?.errors?.['email']">
+                        O email informado não é válido. Verifique se digitou corretamente.
+                    </mat-error>  
+                </mat-form-field>
+            </div>
+        </fieldset>
+        <fieldset class="form-fieldset">
+            <app-form-section-header 
+                title="Informações Clínicas" 
+                hint="Marque as opções abaixo caso o paciente possua alergias ou condições médicas.">
+            </app-form-section-header>
+            <div formGroupName="clinicalInformation" class="form-inputs">
+                <!-- Allergies -->
+                <div class="form-input-checkbox">
+                    <mat-checkbox formControlName="hasAllergies">
+                        Alergias
+                    </mat-checkbox>
+                    @if(clinicalInformationGroup.controls['hasAllergies'].value) {
+                        <mat-form-field class="form-field">
+                            <mat-label>Alergias</mat-label>
+                            <input matInput formControlName="allergiesNotes" type="text" placeholder="Digite suas alergias...">
+                            <mat-error *ngIf="clinicalInformationGroup.controls['allergiesNotes'].errors?.['required']">
+                                O campo alergias é obrigatório.
+                            </mat-error>  
+                        </mat-form-field>
+                    }
+                </div>
+                <!-- Medical Conditions -->
+                <div class="form-input-checkbox">
+                    <mat-checkbox formControlName="hasMedicalConditions">
+                            Condições Médicas
+                    </mat-checkbox>
+                    @if(clinicalInformationGroup.controls['hasMedicalConditions'].value) {
+                        <mat-form-field class="form-field">
+                            <mat-label>Condições Médicas</mat-label>
+                            <input matInput formControlName="medicalConditionsNotes" type="text" placeholder="Digite suas condições médicas...">
+                            <mat-error *ngIf="clinicalInformationGroup.controls['medicalConditionsNotes'].errors?.['required']">
+                                O campo condições médicas é obrigatório.
+                            </mat-error>  
+                        </mat-form-field>
+                    }
+
+                </div>
+            </div>
+        </fieldset>
+        <button mat-flat-button type="submit" class="form-btn-submit" [disabled]="patientForm.invalid">
+            Cadastrar
+        </button>
+    </form>
+}
+

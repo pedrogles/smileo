@@ -1,0 +1,46 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    padding: 2rem;
+    border-radius: .5rem;
+    background-color: var(--bg-surface);
+    border: solid .1rem var(--border-color);
+    box-shadow: 0px 0px 1px 0px rgba(162,162,162,1);
+    -webkit-box-shadow: 0px 0px 1px 0px rgba(162,162,162,1);
+    -moz-box-shadow: 0px 0px 1px 0px rgba(162,162,162,1);
+    .form-fieldset {
+        border: none;
+        .form-inputs {
+            display: grid;
+            gap: 1rem;
+            .form-input-checkbox {
+                display: flex;
+                flex-direction: column;
+                gap: .5rem;
+            }
+            @media (min-width: 768px) {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+    }
+    .form-btn-submit {
+        background-color: var(--primary);
+        border-radius: .3rem;
+        width: 100%;
+        font-size: var(--text-base);
+        height: 3rem;
+        &:not(:disabled) {
+            background-color: var(--primary);
+        }
+        &:disabled {
+            background-color: var(--btn-disabled-bg);
+            color: var(--btn-disabled-text);
+        }
+        &:disabled:hover {
+            background-color: var( --primary-hover);
+        }
+    }
+}
