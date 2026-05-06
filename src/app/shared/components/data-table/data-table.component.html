@@ -1,0 +1,26 @@
+<table class="table">
+  <thead class="t-head">
+    <tr class="t-row">
+      @for(column of columnsConfig(); track column.column){
+        <th scope="col" class="t-cell">{{ column.value }}</th>  
+      }
+    </tr>
+  </thead>
+
+  <tbody class="t-body">
+    @for(row of dataSource(); track row.id){
+      <tr class="t-row">
+        @for(column of columnsConfig(); track column.column){
+          @switch(column.type){
+            @case('text'){
+              <td class="t-cell">{{ row[column.column] ?? '-' }}</td>
+            }
+            @case('boolean'){
+              <td class="t-cell">{{ row[column.column] ? 'Sim' : 'Não' }}</td>
+            }
+          } 
+        }
+      </tr>
+    }
+  </tbody>
+</table>
