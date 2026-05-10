@@ -1,19 +1,18 @@
 import { inject, Injectable } from '@angular/core';
 import { from, map, Observable } from 'rxjs';
-import { SupabaseService } from '../../../core/services/supabase/supabase.service';
-import { IPatient } from '../../../core/interfaces/patient.interface';
+import { SupabaseService } from '../../../../core/services/supabase/supabase.service';
+import { IService } from '../../../../core/interfaces/service.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PatientManagementService {
+export class ServiceManagementService {
   readonly supabaseService = inject(SupabaseService);
 
-
-  getAll(): Observable<IPatient[]> {
+  getAll(): Observable<IService[]> {
     return from(
       this.supabaseService.getClient()
-        .from('patients')
+        .from('services')
         .select('*')
     ).pipe(
       map(({ data, error }) => {
