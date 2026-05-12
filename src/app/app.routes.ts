@@ -20,6 +20,11 @@ export const routes: Routes = [
         path: 'gestao',
         loadChildren: () =>
           import('./features/management/management.routes').then(m => m.MANAGEMENT_ROUTES)
+      },
+      {
+        path: 'profissionais',
+        loadChildren: () =>
+          import('./features/professional/professional.routes').then(m => m.PROFESSIONAL_ROUTES)
       }
     ]
   },

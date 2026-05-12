@@ -1,0 +1,115 @@
+@if(isLoading) {
+    <mat-spinner class="spinner" diameter="20"></mat-spinner>
+} @else {
+    <form [formGroup]="professionalForm" class="form" (ngSubmit)="onSubmit()">
+        <fieldset class="form-fieldset">
+            <app-form-section-header 
+                title="Dados Pessoais" 
+                hint="Informe os dados pessoais do profissional.">
+            </app-form-section-header>
+            <div formGroupName="personalData" class="form-inputs">
+                <!-- Name -->
+                <mat-form-field class="form-field">
+                    <mat-label>Nome do profissional</mat-label>
+                    <input matInput formControlName="name" placeholder="Digite o nome do profissional...">
+                    <mat-error *ngIf="personalDataGroup.get('name')?.errors?.['required']">
+                        O campo nome do profissional é obrigatório.
+                    </mat-error>  
+                    <mat-error *ngIf="personalDataGroup.get('name')?.errors?.['minlength']">
+                        O nome do profissional deve ter no mínimo 6 caracteres.
+                    </mat-error>  
+                </mat-form-field>
+                <!-- Cpf -->
+                <mat-form-field class="form-field">
+                    <mat-label>Cpf</mat-label>
+                    <input matInput formControlName="cpf" mask="000.000.000-00" placeholder="Digite seu cpf...">
+                    <mat-error *ngIf="personalDataGroup.get('cpf')?.errors?.['required']">
+                        O campo cpf é obrigatório.
+                    </mat-error>  
+                    <mat-error *ngIf="personalDataGroup.get('cpf')?.errors?.['cpfMismatch']">
+                        O cpf informado não é válido. Verifique se digitou corretamente.
+                    </mat-error>  
+                </mat-form-field>
+                <!-- Birth -->
+                <mat-form-field class="form-field">
+                    <mat-label>Data de nascimento</mat-label>
+                    <input matInput formControlName="birth" type="date">
+                    <mat-error *ngIf="personalDataGroup.get('birth')?.errors?.['required']">
+                        O campo data de nascimento é obrigatório.
+                    </mat-error>  
+                    <mat-error *ngIf="personalDataGroup.get('birth')?.errors?.['maxlength']">
+                        A data deve ter no máximo 8 caracteres.
+                    </mat-error>  
+                </mat-form-field>
+            </div>
+        </fieldset>
+        <fieldset class="form-fieldset">
+            <app-form-section-header 
+                title="Contato" 
+                hint="Informe os dados de contato do profissional.">
+            </app-form-section-header>
+            <div formGroupName="contact" class="form-inputs">
+                <!-- Phone -->
+                <mat-form-field class="form-field">
+                    <mat-label>Telefone</mat-label>
+                    <input matInput formControlName="phone" mask="(00)00000-0000" type="tel">
+                    <mat-error *ngIf="contactGroup.get('phone')?.errors?.['required']">
+                        O campo telefone é obrigatório.
+                    </mat-error>  
+                    <mat-error *ngIf="contactGroup.get('phone')?.errors?.['minlength']">
+                        O numero informado não é válido. Verifique se digitou corretamente.
+                    </mat-error>  
+                </mat-form-field>
+                <!-- Email -->
+                <mat-form-field class="form-field">
+                    <mat-label>E-mail</mat-label>
+                    <input matInput formControlName="email" placeholder="Digite seu e-mail...">
+                    <mat-error *ngIf="contactGroup.get('email')?.errors?.['required']">
+                        O campo email é obrigatório.
+                    </mat-error>  
+                    <mat-error *ngIf="contactGroup.get('email')?.errors?.['email']">
+                        O email informado não é válido. Verifique se digitou corretamente.
+                    </mat-error>  
+                </mat-form-field>
+            </div>
+        </fieldset>
+        <fieldset class="form-fieldset">
+            <app-form-section-header 
+                title="Informações do Profissional" 
+                hint="Informe os dados profissionais do profissional.">
+            </app-form-section-header>
+            <div formGroupName="professionalInformation" class="form-inputs">
+                <!-- Speciality -->
+                <mat-form-field class="form-field">
+                    <mat-label>Especialidade</mat-label>
+                    <input matInput formControlName="speciality" placeholder="Digite a especialidade...">
+                    <mat-error *ngIf="professionalInformationGroup.get('speciality')?.errors?.['required']">
+                        O campo especialidade é obrigatório.
+                    </mat-error>
+                </mat-form-field>
+                <!-- CRO Number -->
+                <mat-form-field class="form-field">
+                    <mat-label>Número do CRO</mat-label>
+                    <input matInput formControlName="cro_number" placeholder="Digite o número do CRO...">
+                    <mat-error *ngIf="professionalInformationGroup.get('cro_number')?.errors?.['required']">
+                        O campo número do CRO é obrigatório.
+                    </mat-error>
+                </mat-form-field>
+                <!-- CRO State -->
+                <mat-form-field class="form-field">
+                    <mat-label>Estado do CRO</mat-label>
+                    <mat-select formControlName="cro_state">
+                        <mat-option [value]="true">Ativo</mat-option>
+                        <mat-option [value]="false">Inativo</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="professionalInformationGroup.get('cro_state')?.errors?.['required']">
+                        O campo estado do CRO é obrigatório.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </fieldset>
+        <button mat-flat-button type="submit" class="form-btn-submit" [disabled]="professionalForm.invalid">
+            Cadastrar
+        </button>
+    </form>
+}
