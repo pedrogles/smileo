@@ -15,6 +15,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormSectionHeaderComponent } from '../../../../../../shared/components/form-section-header/form-section-header.component';
 import { CreatePatientDTO } from '../../../../dtos/create-patient.dto';
+import { ToastService } from '../../../../../../core/services/toast/toast.service';
 
 @Component({
   selector: 'app-patient-registration-form',
@@ -45,6 +46,7 @@ export class PatientRegistrationFormComponent {
 
   private readonly formBuilder = inject(FormBuilder);
   private readonly patientService = inject(PatientService);
+  private readonly toastService = inject(ToastService);
 
   ngOnInit(): void {
     this.initializeForm();
@@ -87,14 +89,13 @@ export class PatientRegistrationFormComponent {
     console.log('Patient Data to be submitted:', patientData);
     this.patientService.create(patientData).subscribe({
         next: (createdPatient) => {
-          // Add toast notification
-          console.log(`Paciente "${createdPatient.name}" cadastrado(a) com sucesso!`);
+          this.toastService.show(`Paciente "${createdPatient.name}" cadastrado(a) com sucesso!`, 'success');
           this.patientForm.reset();
           this.isLoading = false;
         },
         error: (error) => {
+          this.toastService.show('Erro ao cadastrar paciente.', 'error');
           console.error('Error creating patient:', error);
-          // Add toast notification
           this.isLoading = false;
         }
     });
