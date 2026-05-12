@@ -12,6 +12,7 @@ import { FormSectionHeaderComponent } from '../../../../../../shared/components/
 import { CreateServiceDTO } from '../../../../dtos/create-service.dto';
 import { ServiceFormType } from '../../../../../../core/types/serviceForm.type';
 import { ServiceService } from '../../../../services/service.service';
+import { ToastService } from '../../../../../../core/services/toast/toast.service';
 
 @Component({
   selector: 'app-service-registration-form',
@@ -38,6 +39,7 @@ export class ServiceRegistrationFormComponent {
 
   private readonly formBuilder = inject(FormBuilder);
   private readonly serviceService = inject(ServiceService);
+  private readonly toastService = inject(ToastService);
 
   ngOnInit(): void {
     this.initializeForm();
@@ -70,14 +72,13 @@ export class ServiceRegistrationFormComponent {
     console.log('Service Data to be submitted:', serviceData);
     this.serviceService.create(serviceData).subscribe({
       next: (createdService) => {
-        // Add toast notification
-        console.log(`Serviço "${createdService.name}" cadastrado(a) com sucesso!`);
+        this.toastService.show(`Serviço "${createdService.name}" cadastrado(a) com sucesso!`, 'success');
         this.serviceForm.reset();
         this.isLoading = false;
       },
         error: (error) => {
           console.error('Error creating service:', error);
-          // Add toast notification
+          this.toastService.show('Ocorreu um erro ao cadastrar o serviço. Por favor, tente novamente.', 'error');
           this.isLoading = false;
         }
     });
