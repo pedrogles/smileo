@@ -1,9 +1,9 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { DataTableComponent } from '../../../../../../shared/components/data-table/data-table.component';
-import { PatientManagementService } from '../../../../services/patient-management.service';
 import { IPatient } from '../../../../../../core/interfaces/patient.interface';
 import { ColumnsConfigType } from '../../../../../../core/types/columnsConfig.type';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { PatientManagementService } from '../../../../services/patient/patient-management.service';
 
 @Component({
   selector: 'app-patient-management-table',

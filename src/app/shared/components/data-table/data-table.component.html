@@ -19,6 +19,12 @@
               @case('boolean'){
                 <td class="t-cell">{{ row[column.column] ? 'Sim' : 'Não' }}</td>
               }
+              @case('price'){
+                <td class="t-cell">{{ row[column.column] | currency:'BRL':'symbol':'1.2-2' }}</td>
+              }
+              @case('minutes'){
+                <td class="t-cell">{{ row[column.column] }} min</td>
+              }
             } 
           }
         </tr>
