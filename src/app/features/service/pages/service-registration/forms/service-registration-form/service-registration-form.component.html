@@ -1,0 +1,62 @@
+@if(isLoading) {
+    <mat-spinner class="spinner" diameter="20"></mat-spinner>
+} @else {
+    <form [formGroup]="serviceForm" class="form" (ngSubmit)="onSubmit()">
+        <fieldset class="form-fieldset">
+            <app-form-section-header 
+                title="Dados do Serviço" 
+                hint="Informe os dados do serviço.">
+            </app-form-section-header>
+            <div class="form-inputs">
+                <!-- Name -->
+                <mat-form-field class="form-field">
+                    <mat-label>Nome do serviço</mat-label>
+                    <input matInput formControlName="name" placeholder="Digite o nome do serviço...">
+                    <mat-error *ngIf="form.get('name')?.errors?.['required']">
+                        O campo nome do serviço é obrigatório.
+                    </mat-error>  
+                    <mat-error *ngIf="form.get('name')?.errors?.['minlength']">
+                        O nome do serviço deve ter no mínimo 6 caracteres.
+                    </mat-error>  
+                </mat-form-field>
+                <!-- Description -->
+                <mat-form-field class="form-field">
+                    <mat-label>Descrição</mat-label>
+                    <input matInput formControlName="description" placeholder="Digite a descrição do serviço...">
+                    <mat-error *ngIf="form.get('description')?.errors?.['required']">
+                        O campo descrição é obrigatório.
+                    </mat-error>  
+                    <mat-error *ngIf="form.get('description')?.errors?.['minlength']">
+                        A descrição deve ter no mínimo 6 caracteres.
+                    </mat-error>  
+                </mat-form-field>
+                <!-- Duration Minutes -->
+                <mat-form-field class="form-field">
+                    <mat-label>Duração (minutos)</mat-label>
+                    <input matInput formControlName="durationMinutes" type="number" placeholder="Digite a duração do serviço em minutos...">
+                    <mat-error *ngIf="form.get('durationMinutes')?.errors?.['required']">
+                        O campo duração é obrigatório.
+                    </mat-error>  
+                    <mat-error *ngIf="form.get('durationMinutes')?.errors?.['min']">
+                        A duração deve ser um número positivo.
+                    </mat-error>  
+                </mat-form-field>
+                <!-- Price -->
+                <mat-form-field class="form-field">
+                    <mat-label>Preço (R$)</mat-label>
+                    <input matInput formControlName="price" type="number" placeholder="Digite o preço do serviço...">
+                    <mat-error *ngIf="form.get('price')?.errors?.['required']">
+                        O campo preço é obrigatório.
+                    </mat-error>  
+                    <mat-error *ngIf="form.get('price')?.errors?.['min']">
+                        O preço deve ser um número positivo.
+                    </mat-error>  
+                </mat-form-field>
+            </div>
+        </fieldset>
+        <button mat-flat-button type="submit" class="form-btn-submit" [disabled]="serviceForm.invalid">
+            Cadastrar
+        </button>
+    </form>
+}
+

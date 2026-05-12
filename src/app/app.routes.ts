@@ -17,6 +17,11 @@ export const routes: Routes = [
           import('./features/patient/patient.routes').then(m => m.PATIENT_ROUTES)
       },
       {
+        path: 'servicos',
+        loadChildren: () =>
+          import('./features/service/service.routes').then(m => m.SERVICE_ROUTES)
+      },
+      {
         path: 'gestao',
         loadChildren: () =>
           import('./features/management/management.routes').then(m => m.MANAGEMENT_ROUTES)
