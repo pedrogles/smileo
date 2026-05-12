@@ -17,6 +17,7 @@ import { CreateProfessionalDTO } from '../../../../dtos/create-professional.dto'
 import { ProfessionalFormType } from '../../../../../../core/types/professionalDataForm.type';
 import { PROFESSIONAL_SPECIALTIES_OPTIONS } from '../../../../../../core/constants/professioalSpecialtiesOptions.constant';
 import { BRAZILIAN_STATES_OPTIONS } from '../../../../../../core/constants/brazilianStatesOptions.constant';
+import { ToastService } from '../../../../../../core/services/toast/toast.service';
 
 @Component({
   selector: 'app-professional-registration-form',
@@ -50,6 +51,7 @@ export class ProfessionalRegistrationFormComponent {
 
   private readonly formBuilder = inject(FormBuilder);
   private readonly professionalService = inject(ProfessionalService);
+  private readonly toastService = inject(ToastService);
 
   ngOnInit(): void {
     this.initializeForm();
@@ -85,15 +87,15 @@ export class ProfessionalRegistrationFormComponent {
   onSubmit(): void {
     this.isLoading = true;
     const professionalData: CreateProfessionalDTO = this.buildCreateProfessionalDTO();
-    console.log('Professional Data to be submitted:', professionalData);
     this.professionalService.create(professionalData).subscribe({
         next: (createdProfessional) => {
-          console.log(`Profissional "${createdProfessional.name}" cadastrado(a) com sucesso!`);
+          this.toastService.show(`Profissional "${createdProfessional.name}" cadastrado(a) com sucesso!`, 'success');
           this.professionalForm.reset();
           this.isLoading = false;
         },
         error: (error) => {
           console.error('Error creating professional:', error);
+          this.toastService.show('Ocorreu um erro ao cadastrar o profissional. Por favor, tente novamente.', 'error');
           this.isLoading = false;
         }
     });
