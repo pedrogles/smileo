@@ -79,13 +79,16 @@
                 hint="Informe os dados profissionais do profissional.">
             </app-form-section-header>
             <div formGroupName="professionalInformation" class="form-inputs">
-                <!-- Speciality -->
+                <!-- Specialty -->
                 <mat-form-field class="form-field">
                     <mat-label>Especialidade</mat-label>
-                    <input matInput formControlName="speciality" placeholder="Digite a especialidade...">
-                    <mat-error *ngIf="professionalInformationGroup.get('speciality')?.errors?.['required']">
-                        O campo especialidade é obrigatório.
-                    </mat-error>
+                    <mat-select formControlName="specialty" placeholder="Selecione a especialidade">
+                        @for(specialty of professionalSpecialtiesOptions; track specialty.value) {
+                            <mat-option [value]="specialty.value">
+                                {{ specialty.label }}
+                            </mat-option>
+                        }
+                    </mat-select>
                 </mat-form-field>
                 <!-- CRO Number -->
                 <mat-form-field class="form-field">
@@ -98,13 +101,13 @@
                 <!-- CRO State -->
                 <mat-form-field class="form-field">
                     <mat-label>Estado do CRO</mat-label>
-                    <mat-select formControlName="cro_state">
-                        <mat-option [value]="true">Ativo</mat-option>
-                        <mat-option [value]="false">Inativo</mat-option>
+                    <mat-select formControlName="cro_state" placeholder="Selecione o estado do CRO">
+                        @for(state of brazilianStatesOptions; track state.value) {
+                            <mat-option [value]="state.value">
+                                {{ state.label }}
+                            </mat-option>
+                        }
                     </mat-select>
-                    <mat-error *ngIf="professionalInformationGroup.get('cro_state')?.errors?.['required']">
-                        O campo estado do CRO é obrigatório.
-                    </mat-error>
                 </mat-form-field>
             </div>
         </fieldset>

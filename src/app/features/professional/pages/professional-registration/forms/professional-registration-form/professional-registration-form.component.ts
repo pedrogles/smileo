@@ -15,6 +15,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormSectionHeaderComponent } from '../../../../../../shared/components/form-section-header/form-section-header.component';
 import { CreateProfessionalDTO } from '../../../../dtos/create-professional.dto';
 import { ProfessionalFormType } from '../../../../../../core/types/professionalDataForm.type';
+import { PROFESSIONAL_SPECIALTIES_OPTIONS } from '../../../../../../core/constants/professioalSpecialtiesOptions.constant';
+import { BRAZILIAN_STATES_OPTIONS } from '../../../../../../core/constants/brazilianStatesOptions.constant';
 
 @Component({
   selector: 'app-professional-registration-form',
@@ -42,6 +44,9 @@ export class ProfessionalRegistrationFormComponent {
   }>;
 
   isLoading = false;
+
+  readonly professionalSpecialtiesOptions = PROFESSIONAL_SPECIALTIES_OPTIONS;
+  readonly brazilianStatesOptions = BRAZILIAN_STATES_OPTIONS;
 
   private readonly formBuilder = inject(FormBuilder);
   private readonly professionalService = inject(ProfessionalService);
@@ -71,10 +76,8 @@ export class ProfessionalRegistrationFormComponent {
           { nonNullable: true, validators: [Validators.required] }),
         cro_number: new FormControl<string>('', 
           { nonNullable: true, validators: [Validators.required] }),
-        cro_state: new FormControl<boolean>(false, 
-          { nonNullable: true, validators: [Validators.required] }),
-        is_active: new FormControl<string>('true', 
-          { nonNullable: true, validators: [Validators.required] }),
+        cro_state: new FormControl<string>('', 
+          { nonNullable: true, validators: [Validators.required] })
       })
     });
   }
@@ -107,7 +110,6 @@ export class ProfessionalRegistrationFormComponent {
       specialty: formValue.professionalInformation.specialty,
       cro_number: formValue.professionalInformation.cro_number,
       cro_state: formValue.professionalInformation.cro_state,
-      is_active: formValue.professionalInformation.is_active,
     };
   }
 

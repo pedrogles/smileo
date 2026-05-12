@@ -6,6 +6,5 @@ export interface CreateProfessionalDTO {
     email: string;
     specialty: string;
     cro_number: string;
-    cro_state: boolean;
-    is_active: string;
+    cro_state: string;
 }
