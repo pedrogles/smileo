@@ -9,25 +9,31 @@
     </thead>
 
     <tbody class="t-body">
-      @for(row of dataSource(); track row.id){
+      @if(dataSource().length === 0){
         <tr class="t-row">
-          @for(column of columnsConfig(); track column.column){
-            @switch(column.type){
-              @case('text'){
-                <td class="t-cell">{{ row[column.column] ?? '-' }}</td>
-              }
-              @case('boolean'){
-                <td class="t-cell">{{ row[column.column] ? 'Sim' : 'Não' }}</td>
-              }
-              @case('price'){
-                <td class="t-cell">{{ row[column.column] | currency:'BRL':'symbol':'1.2-2' }}</td>
-              }
-              @case('minutes'){
-                <td class="t-cell">{{ row[column.column] }} min</td>
-              }
-            } 
-          }
+          <td [attr.colspan]="columnsConfig().length" class="t-cell text-center">Nenhum dado encontrado.</td>
         </tr>
+      } @else {
+          @for(row of dataSource(); track row.id){
+          <tr class="t-row">
+            @for(column of columnsConfig(); track column.column){
+              @switch(column.type){
+                @case('text'){
+                  <td class="t-cell">{{ row[column.column] ?? '-' }}</td>
+                }
+                @case('boolean'){
+                  <td class="t-cell">{{ row[column.column] ? 'Sim' : 'Não' }}</td>
+                }
+                @case('price'){
+                  <td class="t-cell">{{ row[column.column] | currency:'BRL':'symbol':'1.2-2' }}</td>
+                }
+                @case('minutes'){
+                  <td class="t-cell">{{ row[column.column] }} min</td>
+                }
+              } 
+            }
+          </tr>
+        }
       }
     </tbody>
   </table>
