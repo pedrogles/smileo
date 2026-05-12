@@ -12,8 +12,8 @@ export const MENU_ITEMS: IMenuItem[] = [
                 route: '/app/pacientes/novo',
             },
             {
-                label: 'Novo Serviço',
-                route: '/app/servicos/novo',
+                label: 'Novo Profissional',
+                route: '/app/profissionais/novo',
             }
         ]
     },
@@ -28,8 +28,8 @@ export const MENU_ITEMS: IMenuItem[] = [
                 route: '/app/gestao/pacientes',
             },
             {
-                label: 'Serviços',
-                route: '/app/gestao/servicos',
+                label: 'Profissionais',
+                route: '/app/gestao/profissionais',
             }
         ]
     }

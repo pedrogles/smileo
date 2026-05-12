@@ -1,6 +1,6 @@
 import { Routes } from "@angular/router";
 import { PatientManagementComponent } from "./pages/patient-management/patient-management.component";
-import { ServiceManagementComponent } from "./pages/service-management/service-management.component";
+import { ProfessionalManagementComponent } from "./pages/professional-management/professional-management.component";
 
 export const MANAGEMENT_ROUTES: Routes = [
     {
@@ -13,12 +13,11 @@ export const MANAGEMENT_ROUTES: Routes = [
         component: PatientManagementComponent, 
     },
     { 
-        path: 'servicos', 
-        component: ServiceManagementComponent, 
+        path: 'profissionais', 
+        component: ProfessionalManagementComponent, 
     },
     {
         path: '**',
         redirectTo: 'pacientes'
     }
-
 ];
