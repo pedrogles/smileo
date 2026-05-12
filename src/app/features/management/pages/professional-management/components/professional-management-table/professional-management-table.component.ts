@@ -24,7 +24,7 @@ export class ProfessionalManagementTableComponent {
     { value: 'Email', column: 'email', type: 'text' },
     { value: 'Especialidade', column: 'speciality', type: 'text' },
     { value: 'CRO', column: 'cro_number', type: 'text' },
-    { value: 'Estado CRO', column: 'cro_state', type: 'boolean' },
+    { value: 'Estado CRO', column: 'cro_state', type: 'text' },
     { value: 'Ativo', column: 'is_active', type: 'boolean' }
   ];
 
