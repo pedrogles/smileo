@@ -24,4 +24,19 @@ export class ProfessionalService {
       }
     ));
   }
+
+  search(search: string): Observable<IProfessional[]> {
+    return from(
+      this.supabaseService.getClient()
+        .from('professionals')
+        .select('id, name, cpf, specialty')
+        .or(`name.ilike.%${search}%,cpf.ilike.%${search}%`)
+        .limit(10)
+    ).pipe(
+      map(res => {
+        if (res.error) throw res.error;
+        return res.data as IProfessional[];
+      }
+    ));
+  }
 }

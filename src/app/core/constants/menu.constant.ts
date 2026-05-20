@@ -22,6 +22,13 @@ export const MENU_ITEMS: IMenuItem[] = [
         ]
     },
     { 
+        key: 'agendamento',
+        label: 'Agendamento', 
+        icon: 'calendar_today',
+        type: 'link',
+        route: '/app/agendamentos/novo'
+    },
+    { 
         key: 'gestao',
         label: 'Gestão', 
         icon: 'admin_panel_settings',
@@ -38,6 +45,11 @@ export const MENU_ITEMS: IMenuItem[] = [
             {
                 label: 'Serviços',
                 route: '/app/gestao/servicos'
+            }
+            ,
+            {
+                label: 'Agendamentos',
+                route: '/app/gestao/agendamentos'
             }
         ]
     }

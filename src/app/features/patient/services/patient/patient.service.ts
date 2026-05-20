@@ -24,4 +24,19 @@ export class PatientService {
       }
     ));
   }
+
+  search(search: string): Observable<IPatient[]> {
+    return from(
+      this.supabaseService.getClient()
+        .from('patients')
+        .select('id, name, cpf')
+        .or(`name.ilike.%${search}%,cpf.ilike.%${search}%`)
+        .limit(10)
+    ).pipe(
+      map(res => {
+        if (res.error) throw res.error;
+        return res.data as IPatient[];
+      }
+    ));
+  }
 }

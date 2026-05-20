@@ -30,6 +30,11 @@ export const routes: Routes = [
         path: 'profissionais',
         loadChildren: () =>
           import('./features/professional/professional.routes').then(m => m.PROFESSIONAL_ROUTES)
+      },
+      {
+        path: 'agendamentos',
+        loadChildren: () =>
+          import('./features/appointment/appointment.routes').then(m => m.APPOINTMENT_ROUTES)
       }
     ]
   },
