@@ -1,0 +1,53 @@
+<header id="navbar">
+    <img id="medical-logo" src="smileo.svg" alt="Logo Smileo">
+    @if(isMenu) {
+        <mat-icon 
+            class="close-btn" 
+            aria-hidden="false" 
+            aria-label="Fechar menu" 
+            fontIcon="close" 
+            (click)="toggleMenu()">
+        </mat-icon>
+    } @else {
+        <mat-icon 
+            class="menu-btn" 
+            aria-hidden="false" 
+            aria-label="Abrir menu" 
+            fontIcon="menu" 
+            (click)="toggleMenu()">
+        </mat-icon>
+    }
+</header>
+<nav class="menu" [@openClose]="isMenu ? 'open' : 'close'">
+    <ul class="menu-list">
+        <mat-divider></mat-divider>
+        @for(item of menuItems; track item.key) {
+            <li>
+                @if(item.type === 'link') {
+                    <a class="menu-item" [routerLink]="item.route" (click)="closeMenu()">
+                        <mat-icon aria-hidden="true" fontIcon="{{item.icon}}"></mat-icon>
+                        {{ item.label }}
+                    </a>
+                } 
+                @else if(item.type === 'submenu') {
+                    <button class="menu-item" matButton [matMenuTriggerFor]="menu">
+                        <mat-icon aria-hidden="true" fontIcon="{{item.icon}}"></mat-icon>
+                        {{item.label}}
+                    </button>
+                    <mat-menu #menu="matMenu" class="mat-menu-custom-navbar">
+                        @for(option of item.children; track option.label) {
+                            <button mat-menu-item [routerLink]="option.route" (click)="closeMenu()">
+                                {{option.label}}
+                            </button>
+                        }
+                    </mat-menu>
+                }
+            </li>
+        }
+        <mat-divider></mat-divider>
+    </ul>
+    <button class="logout-btn" (click)="onLogout()">
+        <mat-icon aria-hidden="false" aria-label="Botão sair" fontIcon="logout"></mat-icon>
+        Logout
+    </button>
+</nav>

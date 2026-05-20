@@ -1,0 +1,40 @@
+<div class="table-container">
+  <table class="table">
+    <thead class="t-head">
+      <tr class="t-row">
+        @for(column of columnsConfig(); track column.column){
+          <th scope="col" class="t-cell">{{ column.value }}</th>  
+        }
+      </tr>
+    </thead>
+
+    <tbody class="t-body">
+      @if(dataSource().length === 0){
+        <tr class="t-row">
+          <td [attr.colspan]="columnsConfig().length" class="t-cell text-center">Nenhum dado encontrado.</td>
+        </tr>
+      } @else {
+          @for(row of dataSource(); track row.id){
+          <tr class="t-row">
+            @for(column of columnsConfig(); track column.column){
+              @switch(column.type){
+                @case('text'){
+                  <td class="t-cell">{{ row[column.column] ?? '-' }}</td>
+                }
+                @case('boolean'){
+                  <td class="t-cell">{{ row[column.column] ? 'Sim' : 'Não' }}</td>
+                }
+                @case('price'){
+                  <td class="t-cell">{{ row[column.column] | currency:'BRL':'symbol':'1.2-2' }}</td>
+                }
+                @case('minutes'){
+                  <td class="t-cell">{{ row[column.column] }} min</td>
+                }
+              } 
+            }
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
+</div>
