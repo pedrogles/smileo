@@ -1,4 +1,5 @@
 export interface IPatient {
+    readonly id: string;
     name: string;
     birth: string;
     cpf: string;

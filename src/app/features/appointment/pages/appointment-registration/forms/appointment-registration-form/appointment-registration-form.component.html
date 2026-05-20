@@ -1,0 +1,122 @@
+@if(isLoading) {
+    <mat-spinner class="spinner" diameter="20"></mat-spinner>
+} @else {
+    <form [formGroup]="appointmentForm" class="form" (ngSubmit)="onSubmit()">
+        <fieldset class="form-fieldset">
+            <app-form-section-header 
+                title="Dados do agendamento" 
+                hint="Informe os dados para agendar a consulta.">
+            </app-form-section-header>
+            <div class="form-inputs">
+                <!-- Patient -->
+                <mat-form-field class="form-field">
+                    <mat-label>Buscar paciente</mat-label>
+                    <input 
+                        matInput 
+                        formControlName="patient" 
+                        [matAutocomplete]="patientAuto"
+                        placeholder="Digite o Nome ou CPF do paciente...">
+                    <mat-autocomplete
+                        #patientAuto="matAutocomplete"
+                        [displayWith]="displayInputName">
+                        @for(patient of patients$ | async; track patient.id) {
+                            <mat-option [value]="patient">
+                                {{ patient.name }} - {{ patient.cpf }}
+                            </mat-option>
+                        }
+                    </mat-autocomplete>
+                    <mat-error *ngIf="formControls.patient.errors?.['required']">
+                        O campo é obrigatório.
+                    </mat-error>  
+                    <mat-error *ngIf="formControls.patient.errors?.['notFound']">
+                        Paciente não encontrado.
+                    </mat-error>  
+                </mat-form-field>
+                <!-- Professional -->
+                <mat-form-field class="form-field">
+                    <mat-label>Buscar profissional</mat-label>
+                    <input 
+                        matInput 
+                        formControlName="professional" 
+                        [matAutocomplete]="professionalAuto"
+                        placeholder="Digite o Nome ou CPF do profissional...">
+                    <mat-autocomplete
+                        #professionalAuto="matAutocomplete"
+                        [displayWith]="displayInputName">
+                        @for(professional of professionals$ | async; track professional.id) {
+                            <mat-option [value]="professional">
+                                {{ professional.name }} - {{ professional.cpf }}
+                            </mat-option>
+                        }
+                    </mat-autocomplete>
+                    <mat-error *ngIf="formControls.professional.errors?.['required']">
+                        O campo é obrigatório.
+                    </mat-error>  
+                    <mat-error *ngIf="formControls.professional.errors?.['notFound']">
+                        Profissional não encontrado.
+                    </mat-error>  
+                </mat-form-field>
+                <!-- Service -->
+                <mat-form-field class="form-field">
+                    <mat-label>Buscar serviço</mat-label>
+                    <input 
+                        matInput 
+                        formControlName="service" 
+                        [matAutocomplete]="serviceAuto"
+                        placeholder="Digite o nome do serviço...">
+                    <mat-autocomplete
+                        #serviceAuto="matAutocomplete"
+                        [displayWith]="displayInputName">
+                        @for(service of services$ | async; track service.id) {
+                            <mat-option [value]="service">
+                                {{ service.name }}
+                            </mat-option>
+                        }
+                    </mat-autocomplete>
+                    <mat-error *ngIf="formControls.service.errors?.['required']">
+                        O campo é obrigatório.
+                    </mat-error>  
+                    <mat-error *ngIf="formControls.service.errors?.['notFound']">
+                        Serviço não encontrado.
+                    </mat-error>  
+                </mat-form-field>
+                <!-- Appointment Date -->
+                <mat-form-field class="form-field">
+                    <mat-label>Data da consulta</mat-label>
+                    <input matInput formControlName="date" type="date">
+                    <mat-error *ngIf="formControls.date.errors?.['required']">
+                        O campo data da consulta é obrigatório.
+                    </mat-error>  
+                    <mat-error *ngIf="formControls.date.errors?.['maxlength']">
+                        A data deve ter no máximo 8 caracteres.
+                    </mat-error>  
+                </mat-form-field>
+                <!-- Appointment Hour -->
+                <mat-form-field class="form-field">
+                    <mat-label>Hora da consulta</mat-label>
+                    <mat-select formControlName="hour">
+                        @for(time of appointmentTimeOptions; track time.value) {
+                            <mat-option [value]="time.value" [disabled]="time.disabled">
+                                {{ time.label }}
+                            </mat-option>
+                        }
+                    </mat-select>
+                    <mat-error *ngIf="formControls.hour.errors?.['required']">
+                        O campo hora da consulta é obrigatório.
+                    </mat-error> 
+                </mat-form-field>
+                <!-- Notes -->
+                <mat-form-field class="form-field">
+                    <mat-label>Notas</mat-label>
+                    <textarea matInput formControlName="notes" placeholder="Insira aqui quaisquer observações adicionais..."></textarea>
+                    <mat-error *ngIf="formControls.notes.errors?.['maxlength']">
+                        As notas devem ter no máximo 500 caracteres.
+                    </mat-error>  
+                </mat-form-field>
+            </div>
+        </fieldset>
+        <button mat-flat-button type="submit" class="form-btn-submit" [disabled]="appointmentForm.invalid">
+            Agendar Consulta
+        </button>
+    </form>
+}
