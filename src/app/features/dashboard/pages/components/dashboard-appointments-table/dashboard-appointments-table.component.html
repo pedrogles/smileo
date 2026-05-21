@@ -1,6 +1,19 @@
 @if(isLoading) {
   <mat-spinner class="spinner" diameter="20"></mat-spinner>
 } @else {
+  @if(nextAppointment) {
+    <mat-card class="next-appointment">
+      <mat-icon>schedule</mat-icon>
+      <div class="next-appointment-info">
+        <span class="next-appointment-label">Próximo agendamento marcado</span>
+        <span class="next-appointment-value">
+          {{ nextAppointment.start_datetime }} — {{ nextAppointment.patient_name }}
+          ({{ nextAppointment.service_name }})
+        </span>
+      </div>
+    </mat-card>
+  }
+
   <div class="filters">
     <mat-form-field>
       <mat-label>Data</mat-label>
@@ -13,19 +26,6 @@
       <span>{{ selectedDate | date:'EEEE, dd/MM/yyyy' : '' : 'pt-BR' | titlecase }}</span>
     </div>
   </div>
-
-  @if(nextAppointment) {
-    <mat-card class="next-appointment">
-      <mat-icon>schedule</mat-icon>
-      <div class="next-appointment-info">
-        <span class="next-appointment-label">Próximo agendamento</span>
-        <span class="next-appointment-value">
-          {{ nextAppointment.start_datetime }} — {{ nextAppointment.patient_name }} 
-          ({{ nextAppointment.service_name }})
-        </span>
-      </div>
-    </mat-card>
-  }
 
   @if(appointments.length === 0) {
     <div class="empty">

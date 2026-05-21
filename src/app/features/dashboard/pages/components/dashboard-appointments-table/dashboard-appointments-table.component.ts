@@ -37,16 +37,15 @@ export class DashboardAppointmentsTableComponent implements OnInit {
 
   selectedDate: Date = new Date();
   appointments: DashboardAppointmentTableDTO[] = [];
-  nextAppointment: DashboardAppointmentTableDTO | null = null;
-
   appointmentsWithStatus: any[] = [];
+  nextAppointment: DashboardAppointmentTableDTO | null = null;
 
   columnsConfig: ColumnsConfigType[] = [
     { value: 'Horário', column: 'start_datetime', type: 'text' },
     { value: 'Paciente', column: 'patient_name', type: 'text' },
     { value: 'Profissional', column: 'professional_name', type: 'text' },
     { value: 'Serviço', column: 'service_name', type: 'text' },
-    { value: 'Status', column: 'status_label', type: 'text' },
+    { value: 'Status', column: 'status_label', type: 'status' },
     { value: 'Obs.', column: 'notes', type: 'text' }
   ];
 
@@ -61,6 +60,13 @@ export class DashboardAppointmentsTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadAppointments();
+    this.loadNextAppointment();
+  }
+
+  loadNextAppointment(): void {
+    this.dashboardService.getNextAppointment().subscribe(appointment => {
+      this.nextAppointment = appointment;
+    });
   }
 
   loadAppointments(): void {
@@ -75,17 +81,7 @@ export class DashboardAppointmentsTableComponent implements OnInit {
           ...a,
           status_label: this.statusLabels[a.status] ?? a.status
         }));
-        this.nextAppointment = this.getNextAppointment(appointments);
         this.isLoading = false;
       });
-  }
-
-  private getNextAppointment(appointments: DashboardAppointmentTableDTO[]): DashboardAppointmentTableDTO | null {
-    const now = new Date();
-    const isToday = formatDate(this.selectedDate, 'yyyy-MM-dd', 'en') === formatDate(now, 'yyyy-MM-dd', 'en');
-    if (!isToday) return appointments[0] ?? null;
-    return appointments.find(a =>
-      a.status === 'scheduled' || a.status === 'in_progress'
-    ) ?? null;
   }
 }

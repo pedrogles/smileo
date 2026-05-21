@@ -30,6 +30,27 @@
                 @case('minutes'){
                   <td class="t-cell">{{ row[column.column] }} min</td>
                 }
+                @case('status'){
+                  <td class="t-cell">
+                    <span class="status-chip status-chip--{{ row[column.column] }}">
+                      @switch(row[column.column]) {
+                        @case('Cancelado') {
+                          <mat-icon class="status-icon">close</mat-icon>
+                        }
+                        @case('Concluído') {
+                          <mat-icon class="status-icon">check_circle</mat-icon>
+                        }
+                        @case('Em andamento') {
+                          <mat-icon class="status-icon">pending</mat-icon>
+                        }
+                        @case('Agendado') {
+                          <mat-icon class="status-icon">schedule</mat-icon>
+                        }
+                      }
+                      {{ row[column.column] }}
+                    </span>
+                  </td>
+                }
               } 
             }
           </tr>

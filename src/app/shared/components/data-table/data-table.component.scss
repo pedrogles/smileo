@@ -49,3 +49,39 @@
     }
   }
 }
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+
+  .status-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+
+  &--Agendado {
+    background-color: #e3f2fd;
+    color: #1976d2;
+  }
+
+  &--Em\ andamento {
+    background-color: #fff3e0;
+    color: #f57c00;
+  }
+
+  &--Concluído {
+    background-color: #e8f5e9;
+    color: #388e3c;
+  }
+
+  &--Cancelado {
+    background-color: #ffebee;
+    color: #d32f2f;
+  }
+}
