@@ -1,8 +1,12 @@
-@if(isLoading) {
-  <mat-spinner class="spinner" diameter="20"></mat-spinner>
-} @else {
-  <app-data-table 
-    [dataSource]="patients" 
-    [columnsConfig]="columnsConfig">
-  </app-data-table>
-}
+<app-data-table
+  [data]="patients()"
+  [columns]="columns"
+  [actions]="actions"
+  [loading]="loading()"
+  [total]="total()"
+  [pageSize]="10"
+  emptyMessage="Nenhum paciente encontrado"
+  (queryChange)="onQueryChange($event)"
+  (actionClick)="onActionClick($event)"
+>
+</app-data-table>
