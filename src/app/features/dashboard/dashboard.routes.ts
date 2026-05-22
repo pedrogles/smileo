@@ -3,7 +3,16 @@ import { DashboardComponent } from "./pages/dashboard.component";
 
 export const DASHBOARD_ROUTES: Routes = [
   {
-    path: '',
-    component: DashboardComponent
-  }
+        path: '',
+        redirectTo: '',
+        pathMatch: 'full'
+    },
+    {
+      path: '',
+      component: DashboardComponent
+    },
+    {
+        path: '**',
+        redirectTo: ''
+    }
 ];
