@@ -2,7 +2,7 @@
   <mat-spinner class="spinner" diameter="20"></mat-spinner>
 } @else {
   <app-dashboard-next-appointment
-    [appointment]="nextAppointment"
+    [appointments]="inProgressAppointments"
     (appointmentUpdated)="onAppointmentUpdated()">
   </app-dashboard-next-appointment>
 

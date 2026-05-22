@@ -181,4 +181,41 @@ export class DashboardService {
       })
     );
   }
+  getInProgressAppointments(): Observable<DashboardAppointmentTableDTO[]> {
+  return from(
+    this.supabase.getClient()
+      .from('appointments')
+      .select(`
+        id,
+        start_datetime,
+        status,
+        notes,
+        patient:patient_id (id, name),
+        professional:professional_id (id, name),
+        service:service_id (id, name)
+      `)
+      .eq('status', 'in_progress')
+      .order('start_datetime', { ascending: true })
+  ).pipe(
+    map(({ data, error }) => {
+      if (error) throw new Error(error.message);
+      const appointments = (data ?? []) as unknown as AppointmentQueryResponse[];
+      return appointments.map((appointment): DashboardAppointmentTableDTO => {
+        const { patient, professional, service } = appointment;
+        return {
+          id: appointment.id,
+          patient_id: patient?.id ?? '',
+          professional_id: professional?.id ?? '',
+          service_id: service?.id ?? '',
+          patient_name: patient?.name ?? '-',
+          professional_name: professional?.name ?? '-',
+          service_name: service?.name ?? '-',
+          start_datetime: formatDate(appointment.start_datetime, 'dd/MM/yyyy - HH:mm', 'pt-BR'),
+          status: appointment.status,
+          notes: appointment.notes
+        };
+      });
+    })
+  );
+}
 }

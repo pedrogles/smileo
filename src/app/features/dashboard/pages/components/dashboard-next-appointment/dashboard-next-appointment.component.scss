@@ -1,30 +1,43 @@
-.next-appointment {
+.in-progress-section {
   padding: 0;
-  border-left: none;
   border-radius: 16px;
-  background: linear-gradient(135deg, #e3f2fd, #ffffff);
-  display: flex;
-  flex-direction: column;
   overflow: hidden;
-  transition: all 0.3s;
-  box-shadow: 0 2px 12px rgba(25, 118, 210, 0.1);
+  box-shadow: 0 2px 12px rgba(245, 124, 0, 0.1);
 
-  &.in-progress {
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
     background: linear-gradient(135deg, #fff3e0, #ffffff);
-    box-shadow: 0 2px 12px rgba(245, 124, 0, 0.1);
+    border-left: 4px solid #f57c00;
+    border-bottom: 1px solid #ffe0b2;
 
-    .next-header {
-      border-left-color: #f57c00;
-      background-color: #fff8f0;
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #f57c00;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
 
-      .next-header-left mat-icon { color: #f57c00; }
-      .next-header-info .next-label { color: #f57c00; }
-      .timer { color: #f57c00; }
+      mat-icon {
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+        color: #f57c00;
+      }
     }
 
-    .next-actions {
-      border-top-color: #ffe0b2;
-      background-color: #fff8f0;
+    .section-badge {
+      background-color: #f57c00;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 12px;
     }
   }
 
@@ -33,9 +46,9 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    color: #1976d2;
-    font-size: 0.95rem;
     padding: 24px;
+    color: #9ca3af;
+    font-size: 0.9rem;
 
     mat-icon {
       font-size: 20px;
@@ -44,100 +57,110 @@
     }
   }
 
-  .next-header {
+  .in-progress-list {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 20px;
-    background-color: #e8f4fd;
-    border-left: 4px solid #1976d2;
-    border-bottom: 1px solid #e0e0e0;
+    flex-direction: column;
+    gap: 0;
 
-    .next-header-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-
-      mat-icon {
-        color: #1976d2;
-        font-size: 32px;
-        width: 32px;
-        height: 32px;
-      }
-
-      .next-header-info {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-
-        .next-label {
-          font-size: 0.75rem;
-          color: #1976d2;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-        }
-
-        .next-value {
-          font-size: 1rem;
-          font-weight: 700;
-          color: #111827;
-        }
-      }
-    }
-
-    .timer {
+    .in-progress-card {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 2px;
-      background-color: white;
-      padding: 8px 14px;
-      border-radius: 10px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      gap: 10px;
+      padding: 14px 20px;
+      border-bottom: 1px solid #fff3e0;
+      transition: background 0.2s;
 
-      mat-icon {
-        font-size: 16px;
-        width: 16px;
-        height: 16px;
-        color: #1976d2;
+      &:last-child {
+        border-bottom: none;
       }
 
-      span {
-        font-size: 1.3rem;
-        font-weight: 700;
-        color: #1976d2;
-        letter-spacing: 0.05em;
+      &:hover {
+        background-color: #fffbf5;
       }
-    }
-  }
 
-  .next-actions {
-    display: flex;
-    gap: 8px;
-    justify-content: flex-end;
-    padding: 12px 20px;
-    background-color: #f0f7ff;
-    border-top: 1px solid #e0e0e0;
+      .card-header {
+        .card-header-left {
+          display: flex;
+          align-items: center;
+          gap: 8px;
 
-    .btn-start {
-      color: #1976d2;
-      border-color: #1976d2;
-    }
+          .appointment-time {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #111827;
+          }
 
-    .btn-complete {
-      color: #388e3c;
-      border-color: #388e3c;
-    }
+          .divider {
+            color: #d1d5db;
+          }
 
-    .btn-cancel {
-      color: #d32f2f;
-      border-color: #d32f2f;
-    }
+          .appointment-service {
+            color: #6b7280;
+            font-size: 0.85rem;
+            font-weight: 500;
+          }
+        }
+      }
 
-    .btn-edit {
-      color: #616161;
-      border-color: #616161;
+      .card-body {
+        display: flex;
+        gap: 32px;
+        flex-wrap: wrap;
+
+        .card-info {
+          display: flex;
+          align-items: flex-start;
+          gap: 8px;
+
+          mat-icon {
+            font-size: 18px;
+            width: 18px;
+            height: 18px;
+            color: #9ca3af;
+            margin-top: 2px;
+          }
+
+          .card-info-text {
+            display: flex;
+            flex-direction: column;
+
+            .card-info-label {
+              font-size: 0.7rem;
+              color: #9ca3af;
+              text-transform: uppercase;
+              letter-spacing: 0.05em;
+              font-weight: 500;
+            }
+
+            .card-info-value {
+              font-size: 0.9rem;
+              font-weight: 600;
+              color: #111827;
+            }
+          }
+        }
+      }
+
+      .card-actions {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+
+        .btn-complete {
+          color: #388e3c;
+          border-color: #388e3c;
+        }
+
+        .btn-cancel {
+          color: #d32f2f;
+          border-color: #d32f2f;
+        }
+
+        .btn-edit {
+          color: #616161;
+          border-color: #616161;
+        }
+      }
     }
   }
 }

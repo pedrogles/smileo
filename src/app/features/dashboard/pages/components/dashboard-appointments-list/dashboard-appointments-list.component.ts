@@ -68,6 +68,12 @@ export class DashboardAppointmentsListComponent {
 
   updateStatus(appointment: DashboardAppointmentTableDTO, status: AppointmentStatus): void {
     const messages: Partial<Record<AppointmentStatus, ConfirmDialogData>> = {
+      in_progress: {
+        title: 'Iniciar atendimento',
+        message: `Deseja iniciar o atendimento de ${appointment.patient_name}?`,
+        confirmLabel: 'Iniciar',
+        confirmColor: 'primary'
+      },
       completed: {
         title: 'Concluir agendamento',
         message: `Deseja concluir o agendamento de ${appointment.patient_name}?`,

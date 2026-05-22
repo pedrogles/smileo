@@ -1,51 +1,62 @@
-<mat-card class="next-appointment" [class.in-progress]="appointment()?.status === 'in_progress'">
-  @if(!appointment()) {
+<mat-card class="in-progress-section">
+  <div class="section-header">
+    <div class="section-title">
+      <mat-icon>pending</mat-icon>
+      <span>Em Atendimento</span>
+    </div>
+    @if(appointments().length > 0) {
+      <span class="section-badge">{{ appointments().length }}</span>
+    }
+  </div>
+
+  @if(appointments().length === 0) {
     <div class="empty">
       <mat-icon>event_available</mat-icon>
-      <span>Nenhum atendimento marcado</span>
+      <span>Nenhum atendimento em andamento</span>
     </div>
   } @else {
-    <div class="next-header">
-      <div class="next-header-left">
-        <mat-icon>schedule</mat-icon>
-        <div class="next-header-info">
-          <span class="next-label">
-            {{ appointment()?.status === 'in_progress' ? 'Em atendimento' : 'Próximo atendimento' }}
-          </span>
-          <span class="next-value">
-            {{ appointment()?.start_datetime }} — {{ appointment()?.patient_name }}
-            ({{ appointment()?.service_name }})
-          </span>
+    <div class="in-progress-list">
+      @for(appointment of appointments(); track appointment.id) {
+        <div class="in-progress-card">
+          <div class="card-header">
+            <div class="card-header-left">
+              <span class="appointment-time">{{ appointment.start_datetime }}</span>
+              <span class="divider">•</span>
+              <span class="appointment-service">{{ appointment.service_name }}</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-info">
+              <mat-icon>person</mat-icon>
+              <div class="card-info-text">
+                <span class="card-info-label">Paciente</span>
+                <span class="card-info-value">{{ appointment.patient_name }}</span>
+              </div>
+            </div>
+            <div class="card-info">
+              <mat-icon>medical_services</mat-icon>
+              <div class="card-info-text">
+                <span class="card-info-label">Profissional</span>
+                <span class="card-info-value">{{ appointment.professional_name }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-actions">
+            <button mat-stroked-button class="btn-complete" (click)="updateStatus(appointment, 'completed')">
+              <mat-icon>check_circle</mat-icon>
+              Concluir
+            </button>
+            <button mat-stroked-button class="btn-cancel" (click)="updateStatus(appointment, 'canceled')">
+              <mat-icon>close</mat-icon>
+              Cancelar
+            </button>
+            <button mat-stroked-button class="btn-edit" (click)="openEditDialog(appointment)">
+              <mat-icon>edit</mat-icon>
+              Editar
+            </button>
+          </div>
         </div>
-      </div>
-      @if(showTimer) {
-        <div class="timer">
-          <mat-icon>{{ appointment()?.status === 'in_progress' ? 'timer' : 'hourglass_top' }}</mat-icon>
-          <span>{{ timerDisplay }}</span>
-        </div>
       }
-    </div>
-    <div class="next-actions">
-      @if(appointment()?.status === 'scheduled') {
-        <button mat-stroked-button class="btn-start" (click)="updateStatus('in_progress')">
-          <mat-icon>play_arrow</mat-icon>
-          Iniciar
-        </button>
-      }
-      @if(appointment()?.status === 'in_progress') {
-        <button mat-stroked-button class="btn-complete" (click)="updateStatus('completed')">
-          <mat-icon>check_circle</mat-icon>
-          Concluir
-        </button>
-      }
-      <button mat-stroked-button class="btn-cancel" (click)="updateStatus('canceled')">
-        <mat-icon>close</mat-icon>
-        Cancelar
-      </button>
-      <button mat-stroked-button class="btn-edit" (click)="openEditDialog()">
-        <mat-icon>edit</mat-icon>
-        Editar
-      </button>
     </div>
   }
 </mat-card>

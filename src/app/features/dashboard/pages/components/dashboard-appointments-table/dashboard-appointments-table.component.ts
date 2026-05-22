@@ -37,17 +37,17 @@ export class DashboardAppointmentsTableComponent implements OnInit {
 
   selectedDate: Date = new Date();
   appointments: DashboardAppointmentTableDTO[] = [];
-  nextAppointment: DashboardAppointmentTableDTO | null = null;
+  inProgressAppointments: DashboardAppointmentTableDTO[] = [];
   isLoading = true;
 
   ngOnInit(): void {
     this.loadAppointments();
-    this.loadNextAppointment();
+    this.loadInProgressAppointments();
   }
 
-  loadNextAppointment(): void {
-    this.dashboardService.getNextAppointment().subscribe(appointment => {
-      this.nextAppointment = appointment;
+  loadInProgressAppointments(): void {
+    this.dashboardService.getInProgressAppointments().subscribe(appointments => {
+      this.inProgressAppointments = appointments;
     });
   }
 
@@ -58,14 +58,14 @@ export class DashboardAppointmentsTableComponent implements OnInit {
     this.dashboardService
       .getAppointmentsByDate(dateStr)
       .subscribe(appointments => {
-        this.appointments = appointments;
+        this.appointments = appointments.filter(a => a.status !== 'in_progress');
         this.isLoading = false;
       });
   }
 
   onAppointmentUpdated(): void {
     this.loadAppointments();
-    this.loadNextAppointment();
+    this.loadInProgressAppointments();
     this.appointmentUpdated.emit();
   }
 }

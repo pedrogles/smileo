@@ -45,14 +45,28 @@
             </div>
           }
         </div>
-        @if(appointment.status === 'scheduled' || appointment.status === 'in_progress') {
+        @if(appointment.status === 'scheduled') {
           <div class="card-actions">
-            @if(appointment.status === 'in_progress') {
-              <button mat-stroked-button class="btn-complete" (click)="updateStatus(appointment, 'completed')">
-                <mat-icon>check_circle</mat-icon>
-                Concluir
-              </button>
-            }
+            <button mat-stroked-button class="btn-start" (click)="updateStatus(appointment, 'in_progress')">
+              <mat-icon>play_arrow</mat-icon>
+              Iniciar
+            </button>
+            <button mat-stroked-button class="btn-edit" (click)="openEditDialog(appointment)">
+              <mat-icon>edit</mat-icon>
+              Editar
+            </button>
+            <button mat-stroked-button class="btn-cancel" (click)="updateStatus(appointment, 'canceled')">
+              <mat-icon>close</mat-icon>
+              Cancelar
+            </button>
+          </div>
+        }
+        @if(appointment.status === 'in_progress') {
+          <div class="card-actions">
+            <button mat-stroked-button class="btn-complete" (click)="updateStatus(appointment, 'completed')">
+              <mat-icon>check_circle</mat-icon>
+              Concluir
+            </button>
             <button mat-stroked-button class="btn-edit" (click)="openEditDialog(appointment)">
               <mat-icon>edit</mat-icon>
               Editar
