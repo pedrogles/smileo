@@ -1,87 +1,170 @@
-import { inject, Injectable } from '@angular/core';
-import { from, map, Observable } from 'rxjs';
+import { Injectable, inject } from '@angular/core';
+
+import {
+  from,
+  map,
+  Observable,
+} from 'rxjs';
+
 import { SupabaseService } from '../../../../core/services/supabase/supabase.service';
-import { AppointmentTableDTO } from '../../dtos/appointment-table.dto';
-import { formatDate } from '@angular/common';
-import { AppointmentQueryResponse } from '../../../../core/types/appointment.type';
+
+import { IAppointment } from '../../../../core/interfaces/appointment.interface';
+
+import { TableQuery } from '../../../../shared/components/data-table/interfaces/tableQuery.interface';
+
+import { TableResult } from '../../../../shared/components/data-table/interfaces/tableResult.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AppointmentManagementService {
-  readonly supabaseService = inject(SupabaseService);
 
-  getAll(): Observable<AppointmentTableDTO[]> {
-  return from(
-    this.supabaseService
+  private readonly supabase =
+    inject(SupabaseService);
+
+  public findAll(
+    query: TableQuery,
+  ): Observable<TableResult<IAppointment>> {
+
+    let request = this.supabase
       .getClient()
       .from('appointments')
       .select(`
-        id,
-        start_datetime,
-        status,
-        notes,
-
-        patient:patient_id (
+        *,
+        patient:patients(
           id,
           name
         ),
-
-        professional:professional_id (
+        professional:professionals(
           id,
           name
         ),
+        service:services(
+          id,
+          name
+        )
+      `, {
+        count: 'exact',
+      });
 
-        service:service_id (
+    /*
+      SEARCH
+    */
+
+    if (query.search?.trim()) {
+
+      const search =
+        query.search.trim();
+
+      request = request.or(
+        `
+          notes.ilike.%${search}%
+        `
+          .replace(/\s/g, ''),
+      );
+    }
+
+    /*
+      SORT
+    */
+
+    if (
+      query.sortField &&
+      query.sortDirection
+    ) {
+
+      request = request.order(
+        query.sortField,
+        {
+          ascending:
+            query.sortDirection === 'asc',
+        },
+      );
+    }
+
+    /*
+      PAGINATION
+    */
+
+    request = request.range(
+      query.pageIndex * query.pageSize,
+
+      (
+        query.pageIndex *
+        query.pageSize
+      ) + query.pageSize - 1,
+    );
+
+    return from(request).pipe(
+      map(response => ({
+        data: response.data ?? [],
+
+        total: response.count ?? 0,
+      })),
+    );
+  }
+
+  public update(
+    appointment: IAppointment,
+  ): Observable<IAppointment> {
+
+    const request = this.supabase
+      .getClient()
+      .from('appointments')
+      .update({
+        patient_id:
+          appointment.patient_id,
+
+        professional_id:
+          appointment.professional_id,
+
+        service_id:
+          appointment.service_id,
+
+        start_datetime:
+          appointment.start_datetime,
+
+        notes:
+          appointment.notes,
+
+        status:
+          appointment.status,
+      })
+      .eq('id', appointment.id)
+      .select(`
+        *,
+        patient:patients(
+          id,
+          name
+        ),
+        professional:professionals(
+          id,
+          name
+        ),
+        service:services(
           id,
           name
         )
       `)
-  ).pipe(
-    map(({ data, error }) => {
-      if (error) {
-        throw new Error(error.message);
-      }
+      .single();
 
-      const appointments =
-        (data ?? []) as unknown as AppointmentQueryResponse[];
+    return from(request).pipe(
+      map(response => response.data),
+    );
+  }
 
-      return appointments.map(
-        (appointment): AppointmentTableDTO => {
-          const {
-            patient,
-            professional,
-            service
-          } = appointment;
+  public delete(
+    appointmentId: string,
+  ): Observable<void> {
 
-          return {
-            id: appointment.id,
+    const request = this.supabase
+      .getClient()
+      .from('appointments')
+      .delete()
+      .eq('id', appointmentId);
 
-            patient_id: patient?.id ?? '',
-            professional_id: professional?.id ?? '',
-            service_id: service?.id ?? '',
-
-            patient_name: patient?.name ?? '-',
-
-            professional_name:
-              professional?.name ?? '-',
-
-            service_name:
-              service?.name ?? '-',
-
-            start_datetime: formatDate(
-              appointment.start_datetime,
-              'dd/MM/yyyy - HH:mm',
-              'pt-BR'
-            ),
-
-            status: appointment.status,
-
-            notes: appointment.notes
-          };
-        }
-      );
-    })
-  );
-}
+    return from(request).pipe(
+      map(() => void 0),
+    );
+  }
 }
