@@ -1,0 +1,77 @@
+<div class="dialog">
+
+    <div class="dialog-header">
+
+        <h2 class="dialog-title">
+            Detalhes do serviço
+        </h2>
+
+    </div>
+
+    <div class="dialog-content">
+
+        <div class="info-item full-width">
+
+            <span class="label">
+                Serviço
+            </span>
+
+            <span class="value">
+                {{ service.name }}
+            </span>
+
+        </div>
+
+        <div class="info-item full-width">
+
+            <span class="label">
+                Descrição
+            </span>
+
+            <span class="value description">
+                {{ service.description || 'Sem descrição' }}
+            </span>
+
+        </div>
+
+        <div class="info-item">
+
+            <span class="label">
+                Duração
+            </span>
+
+            <span class="value">
+                {{ service.duration_minutes }} min
+            </span>
+
+        </div>
+
+        <div class="info-item">
+
+            <span class="label">
+                Valor
+            </span>
+
+            <span class="value price">
+                {{
+                    service.price
+                        | currency:'BRL':'symbol':'1.2-2':'pt-BR'
+                }}
+            </span>
+
+        </div>
+
+    </div>
+
+    <div class="dialog-actions">
+
+        <button
+            mat-stroked-button
+            mat-dialog-close
+        >
+            Fechar
+        </button>
+
+    </div>
+
+</div>

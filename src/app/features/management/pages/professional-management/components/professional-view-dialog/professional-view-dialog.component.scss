@@ -1,0 +1,70 @@
+.dialog {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2rem;
+
+    padding: 2rem;
+
+    min-width: 40rem;
+
+    background-color: white;
+}
+
+.dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dialog-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.dialog-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.label {
+    font-size: .85rem;
+    color: #777;
+}
+
+.value {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.status {
+    width: fit-content;
+
+    padding: .3rem .8rem;
+
+    border-radius: 999px;
+
+    background-color: #f44336;
+
+    color: white;
+
+    font-size: .85rem;
+
+    font-weight: 600;
+}
+
+.status.active {
+    background-color: #4caf50;
+}
+
+.dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+}
