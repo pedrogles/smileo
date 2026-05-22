@@ -1,0 +1,109 @@
+<div class="dialog">
+
+    <div class="dialog-header">
+
+        <h2 class="dialog-title">
+            Detalhes do agendamento
+        </h2>
+
+    </div>
+
+    <div class="dialog-content">
+
+        <div class="info-item">
+
+            <span class="label">
+                Paciente
+            </span>
+
+            <span class="value">
+                {{ appointment.patient?.name }}
+            </span>
+
+        </div>
+
+        <div class="info-item">
+
+            <span class="label">
+                Profissional
+            </span>
+
+            <span class="value">
+                {{ appointment.professional?.name }}
+            </span>
+
+        </div>
+
+        <div class="info-item">
+
+            <span class="label">
+                Serviço
+            </span>
+
+            <span class="value">
+                {{ appointment.service?.name }}
+            </span>
+
+        </div>
+
+        <div class="info-item">
+
+            <span class="label">
+                Status
+            </span>
+
+            <span
+                class="badge"
+                [class.completed]="appointment.status === 'completed'"
+                [class.canceled]="appointment.status === 'canceled'"
+                [class.progress]="appointment.status === 'in_progress'"
+            >
+                {{ statusLabel() }}
+            </span>
+
+        </div>
+
+        <div class="info-item full-width">
+
+            <span class="label">
+                Data e horário
+            </span>
+
+            <span class="value">
+                {{
+                    appointment.start_datetime
+                        | date:'dd/MM/yyyy HH:mm'
+                }}
+            </span>
+
+        </div>
+
+        <div class="info-item full-width">
+
+            <span class="label">
+                Observações
+            </span>
+
+            <span class="value description">
+                {{
+                    appointment.notes ||
+                    'Nenhuma observação'
+                }}
+            </span>
+
+        </div>
+
+    </div>
+
+    <div class="dialog-actions">
+
+        <button
+            mat-stroked-button
+            mat-dialog-close
+        >
+            Fechar
+        </button>
+
+    </div>
+
+</div>
