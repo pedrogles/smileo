@@ -12,6 +12,11 @@ export const routes: Routes = [
       import('./core/layouts/app-layout/app-layout.component').then(m => m.AppLayoutComponent),
     children: [
       {
+        path: 'dashboard',
+        loadChildren: () =>
+          import('./features/dashboard/dashboard.routes').then(m => m.DASHBOARD_ROUTES)
+      },
+      {
         path: 'pacientes',
         loadChildren: () =>
           import('./features/patient/patient.routes').then(m => m.PATIENT_ROUTES)

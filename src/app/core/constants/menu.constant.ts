@@ -2,6 +2,13 @@ import { IMenuItem } from "../interfaces/menu.interface";
 
 export const MENU_ITEMS: IMenuItem[] = [
     { 
+        key: 'dashboard',
+        label: 'Dashboard', 
+        icon: 'dashboard',
+        type: 'link',
+        route: '/app/dashboard'
+    },
+    { 
         key: 'cadastros',
         label: 'Cadastros', 
         icon: 'group_add',
@@ -45,8 +52,7 @@ export const MENU_ITEMS: IMenuItem[] = [
             {
                 label: 'Serviços',
                 route: '/app/gestao/servicos'
-            }
-            ,
+            },
             {
                 label: 'Agendamentos',
                 route: '/app/gestao/agendamentos'
