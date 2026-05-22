@@ -1,0 +1,62 @@
+<mat-card class="in-progress-section">
+  <div class="section-header">
+    <div class="section-title">
+      <mat-icon>pending</mat-icon>
+      <span>Em Atendimento</span>
+    </div>
+    @if(appointments().length > 0) {
+      <span class="section-badge">{{ appointments().length }}</span>
+    }
+  </div>
+
+  @if(appointments().length === 0) {
+    <div class="empty">
+      <mat-icon>event_available</mat-icon>
+      <span>Nenhum atendimento em andamento</span>
+    </div>
+  } @else {
+    <div class="in-progress-list">
+      @for(appointment of appointments(); track appointment.id) {
+        <div class="in-progress-card">
+          <div class="card-header">
+            <div class="card-header-left">
+              <span class="appointment-time">{{ appointment.start_datetime }}</span>
+              <span class="divider">•</span>
+              <span class="appointment-service">{{ appointment.service_name }}</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-info">
+              <mat-icon>person</mat-icon>
+              <div class="card-info-text">
+                <span class="card-info-label">Paciente</span>
+                <span class="card-info-value">{{ appointment.patient_name }}</span>
+              </div>
+            </div>
+            <div class="card-info">
+              <mat-icon>medical_services</mat-icon>
+              <div class="card-info-text">
+                <span class="card-info-label">Profissional</span>
+                <span class="card-info-value">{{ appointment.professional_name }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-actions">
+            <button mat-stroked-button class="btn-complete" (click)="updateStatus(appointment, 'completed')">
+              <mat-icon>check_circle</mat-icon>
+              Concluir
+            </button>
+            <button mat-stroked-button class="btn-cancel" (click)="updateStatus(appointment, 'canceled')">
+              <mat-icon>close</mat-icon>
+              Cancelar
+            </button>
+            <button mat-stroked-button class="btn-edit" (click)="openEditDialog(appointment)">
+              <mat-icon>edit</mat-icon>
+              Editar
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</mat-card>

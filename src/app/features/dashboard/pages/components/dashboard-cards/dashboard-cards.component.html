@@ -1,0 +1,27 @@
+@if(isLoading) {
+  <mat-spinner class="spinner" diameter="20"></mat-spinner>
+} @else {
+  <div class="cards">
+    <mat-card class="card card--blue">
+      <mat-icon>people</mat-icon>
+      <div class="card-info">
+        <span class="card-label">Pacientes</span>
+        <span class="card-value">{{ totalPatients }}</span>
+      </div>
+    </mat-card>
+    <mat-card class="card card--green">
+      <mat-icon>medical_services</mat-icon>
+      <div class="card-info">
+        <span class="card-label">Profissionais</span>
+        <span class="card-value">{{ totalProfessionals }}</span>
+      </div>
+    </mat-card>
+    <mat-card class="card card--purple">
+      <mat-icon>calendar_today</mat-icon>
+      <div class="card-info">
+        <span class="card-label">Agendamentos hoje</span>
+        <span class="card-value">{{ totalAppointmentsToday }}</span>
+      </div>
+    </mat-card>
+  </div>
+}

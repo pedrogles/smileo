@@ -1,0 +1,26 @@
+@if(isLoading) {
+  <mat-spinner class="spinner" diameter="20"></mat-spinner>
+} @else {
+  <app-dashboard-next-appointment
+    [appointments]="inProgressAppointments"
+    (appointmentUpdated)="onAppointmentUpdated()">
+  </app-dashboard-next-appointment>
+
+  <div class="filters">
+    <mat-form-field>
+      <mat-label>Data</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate" (ngModelChange)="loadAppointments()">
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <div class="selected-date-label">
+      <mat-icon>event</mat-icon>
+      <span>{{ selectedDate | date:'EEEE, dd/MM/yyyy' : '' : 'pt-BR' | titlecase }}</span>
+    </div>
+  </div>
+
+  <app-dashboard-appointments-list
+    [appointments]="appointments"
+    (appointmentUpdated)="onAppointmentUpdated()">
+  </app-dashboard-appointments-list>
+}
