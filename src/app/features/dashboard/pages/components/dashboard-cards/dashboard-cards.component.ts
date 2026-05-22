@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, effect, inject, input, OnInit } from '@angular/core';
 import { DashboardService } from '../../../services/dashboard.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -18,12 +18,26 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 export class DashboardCardsComponent implements OnInit {
   private readonly dashboardService = inject(DashboardService);
 
+  reload = input<boolean>(false);
+
   totalPatients = 0;
   totalProfessionals = 0;
   totalAppointmentsToday = 0;
   isLoading = true;
 
+  constructor() {
+    effect(() => {
+      const _ = this.reload();
+      this.loadCards();
+    });
+  }
+
   ngOnInit(): void {
+    this.loadCards();
+  }
+
+  loadCards(): void {
+    this.isLoading = true;
     this.dashboardService.getTotalPatients().subscribe(total => {
       this.totalPatients = total;
     });

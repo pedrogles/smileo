@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { from, map, Observable } from 'rxjs';
 import { SupabaseService } from '../../../core/services/supabase/supabase.service';
 import { DashboardAppointmentTableDTO } from '../dtos/dashboard-appointment-table.dto';
-import { AppointmentQueryResponse } from '../../../core/types/appointment.type';
+import { AppointmentQueryResponse, AppointmentStatus } from '../../../core/types/appointment.type';
 import { formatDate } from '@angular/common';
 
 @Injectable({
@@ -92,6 +92,38 @@ export class DashboardService {
     );
   }
 
+  updateAppointmentStatus(id: string, status: AppointmentStatus): Observable<void> {
+    return from(
+      this.supabase.getClient()
+        .from('appointments')
+        .update({ status })
+        .eq('id', id)
+    ).pipe(
+      map(({ error }) => {
+        if (error) throw new Error(error.message);
+      })
+    );
+  }
+
+  updateAppointment(id: string, data: Partial<{
+    patient_id: string;
+    professional_id: string;
+    service_id: string;
+    start_datetime: string;
+    notes: string;
+  }>): Observable<void> {
+    return from(
+      this.supabase.getClient()
+        .from('appointments')
+        .update(data)
+        .eq('id', id)
+    ).pipe(
+      map(({ error }) => {
+        if (error) throw new Error(error.message);
+      })
+    );
+  }
+
   getTotalPatients(): Observable<number> {
     return from(
       this.supabase.getClient()
@@ -126,12 +158,26 @@ export class DashboardService {
       this.supabase.getClient()
         .from('appointments')
         .select('*', { count: 'exact', head: true })
+        .eq('status', 'scheduled')  // ← adicionar isso
         .gte('start_datetime', start)
         .lte('start_datetime', end)
     ).pipe(
       map(({ count, error }) => {
         if (error) throw new Error(error.message);
         return count ?? 0;
+      })
+    );
+  }
+  
+  deleteAppointment(id: string): Observable<void> {
+    return from(
+      this.supabase.getClient()
+        .from('appointments')
+        .delete()
+        .eq('id', id)
+    ).pipe(
+      map(({ error }) => {
+        if (error) throw new Error(error.message);
       })
     );
   }

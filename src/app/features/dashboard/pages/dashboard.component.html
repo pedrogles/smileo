@@ -1,3 +1,3 @@
 <app-page-header title="Dashboard"></app-page-header>
-<app-dashboard-cards></app-dashboard-cards>
-<app-dashboard-appointments-table></app-dashboard-appointments-table>
+<app-dashboard-cards [reload]="reloadCards"></app-dashboard-cards>
+<app-dashboard-appointments-table (appointmentUpdated)="onAppointmentUpdated()"></app-dashboard-appointments-table>

@@ -15,5 +15,9 @@ import { DashboardAppointmentsTableComponent } from './components/dashboard-appo
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
+  reloadCards = false;
 
+  onAppointmentUpdated(): void {
+    this.reloadCards = !this.reloadCards;
+  }
 }
