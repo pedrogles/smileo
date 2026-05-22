@@ -1,0 +1,43 @@
+.form {
+    display: flex;
+    flex-direction: column;
+
+    gap: 1.5rem;
+
+    padding: 2rem;
+
+    background-color: white;
+
+    min-width: 45rem;
+}
+
+.dialog-title {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.description {
+    color: #666;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.btn-submit {
+    background-color: var(--primary);
+}
