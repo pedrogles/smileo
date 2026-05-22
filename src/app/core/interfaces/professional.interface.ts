@@ -7,6 +7,6 @@ export interface IProfessional {
     email: string;
     specialty: string;
     cro_number: string;
-    cro_state: boolean;
-    is_active: String;
+    cro_state: string;
+    is_active: string;
 }
