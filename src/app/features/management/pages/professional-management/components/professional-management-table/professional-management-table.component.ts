@@ -28,8 +28,8 @@ import { ProfessionalViewDialogComponent } from '../professional-view-dialog/pro
 import { ProfessionalFormDialogComponent } from '../professional-form-dialog/professional-form-dialog.component';
 import { ProfessionalManagementService } from '../../../../services/professional/professional-management.service';
 import { DialogService } from '../../../../../../shared/components/dialog/service/dialog.service';
-import { PROFESSIONAL_TABLE_COLUMNS } from '../../../../../../core/constants/professional-management.constants';
-import { PROFESSIONAL_TABLE_ACTIONS } from '../../../../../../core/actions/professional-table.actions';
+import { PROFESSIONAL_TABLE_COLUMNS } from '../../../../../../core/constants/professional-management.constant';
+import { PROFESSIONAL_TABLE_ACTIONS } from '../../../../../../core/actions/professional-table.action';
 
 @Component({
   selector: 'app-professional-management-table',

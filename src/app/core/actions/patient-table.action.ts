@@ -1,6 +1,6 @@
-import { TableAction } from '../../../../shared/components/data-table/interfaces/tableAction.interface';
+import { TableAction } from '../../shared/components/data-table/interfaces/tableAction.interface';
 
-import { IPatient } from '../../../../core/interfaces/patient.interface';
+import { IPatient } from '../interfaces/patient.interface';
 
 export const PATIENT_TABLE_ACTIONS: TableAction<IPatient>[] = [
   {

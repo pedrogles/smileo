@@ -23,9 +23,9 @@ import { IPatient } from '../../../../../../core/interfaces/patient.interface';
 
 import { PatientManagementService } from '../../../../services/patient/patient-management.service';
 
-import { PATIENT_TABLE_COLUMNS } from '../../../../../../core/constants/patient-management.constants';
+import { PATIENT_TABLE_COLUMNS } from '../../../../../../core/constants/patient-management.constant';
 
-import { PATIENT_TABLE_ACTIONS } from '../../../../../../shared/components/data-table/actions/patient-table.actions';
+import { PATIENT_TABLE_ACTIONS } from '../../../../../../core/actions/patient-table.action';
 
 import { ConfirmationDialogComponent } from '../../../../../../shared/components/dialog/confirmation-dialog/confirmation-dialog.component';
 
