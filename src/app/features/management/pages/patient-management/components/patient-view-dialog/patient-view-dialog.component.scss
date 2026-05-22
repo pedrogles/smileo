@@ -1,0 +1,31 @@
+.details-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(240px, 1fr));
+
+  gap: 1rem;
+
+  padding-top: 1rem;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  padding: 1rem;
+
+  border-radius: 12px;
+
+  background: #f8fafc;
+}
+
+.label {
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  color: #64748b;
+
+  text-transform: uppercase;
+}
