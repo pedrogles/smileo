@@ -1,0 +1,95 @@
+@if(appointments().length === 0) {
+  <div class="empty">
+    <mat-icon>event_busy</mat-icon>
+    <span>Nenhum agendamento encontrado para este dia.</span>
+  </div>
+} @else {
+  <div class="appointments-list">
+    @for(appointment of appointments(); track appointment.id) {
+      <mat-card class="appointment-card">
+        <div class="card-header">
+          <div class="card-header-left">
+            <span class="appointment-time">{{ appointment.start_datetime }}</span>
+            <span class="divider">•</span>
+            <span class="appointment-service">{{ appointment.service_name }}</span>
+          </div>
+          <span class="status-chip {{ statusColors[appointment.status] }}">
+            <mat-icon class="status-icon">{{ statusIcons[appointment.status] }}</mat-icon>
+            {{ statusLabels[appointment.status] }}
+          </span>
+        </div>
+        <div class="card-body">
+          <div class="card-row">
+            <div class="card-info">
+              <mat-icon>person</mat-icon>
+              <div class="card-info-text">
+                <span class="card-info-label">Paciente</span>
+                <span class="card-info-value">{{ appointment.patient_name }}</span>
+              </div>
+            </div>
+            <div class="card-info">
+              <mat-icon>medical_services</mat-icon>
+              <div class="card-info-text">
+                <span class="card-info-label">Profissional</span>
+                <span class="card-info-value">{{ appointment.professional_name }}</span>
+              </div>
+            </div>
+          </div>
+          @if(appointment.notes) {
+            <div class="card-info">
+              <mat-icon>notes</mat-icon>
+              <div class="card-info-text">
+                <span class="card-info-label">Observação</span>
+                <span class="card-info-value">{{ appointment.notes }}</span>
+              </div>
+            </div>
+          }
+        </div>
+        @if(appointment.status === 'scheduled') {
+          <div class="card-actions">
+            <button mat-stroked-button class="btn-start" (click)="updateStatus(appointment, 'in_progress')">
+              <mat-icon>play_arrow</mat-icon>
+              Iniciar
+            </button>
+            <button mat-stroked-button class="btn-edit" (click)="openEditDialog(appointment)">
+              <mat-icon>edit</mat-icon>
+              Editar
+            </button>
+            <button mat-stroked-button class="btn-cancel" (click)="updateStatus(appointment, 'canceled')">
+              <mat-icon>close</mat-icon>
+              Cancelar
+            </button>
+          </div>
+        }
+        @if(appointment.status === 'in_progress') {
+          <div class="card-actions">
+            <button mat-stroked-button class="btn-complete" (click)="updateStatus(appointment, 'completed')">
+              <mat-icon>check_circle</mat-icon>
+              Concluir
+            </button>
+            <button mat-stroked-button class="btn-edit" (click)="openEditDialog(appointment)">
+              <mat-icon>edit</mat-icon>
+              Editar
+            </button>
+            <button mat-stroked-button class="btn-cancel" (click)="updateStatus(appointment, 'canceled')">
+              <mat-icon>close</mat-icon>
+              Cancelar
+            </button>
+          </div>
+        }
+        @if(appointment.status === 'completed' || appointment.status === 'canceled') {
+          <div class="card-actions">
+            <button mat-stroked-button class="btn-edit" (click)="openEditDialog(appointment)">
+              <mat-icon>edit</mat-icon>
+              Editar
+            </button>
+            <button mat-stroked-button class="btn-delete" (click)="deleteAppointment(appointment)">
+              <mat-icon>delete</mat-icon>
+              Excluir
+            </button>
+          </div>
+        }
+      </mat-card>
+    }
+  </div>
+}

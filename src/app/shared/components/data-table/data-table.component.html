@@ -1,0 +1,189 @@
+<div class="table-wrapper">
+
+  <div class="table-toolbar">
+    <mat-form-field appearance="outline">
+      <mat-label>Buscar</mat-label>
+
+      <input
+        matInput
+        [formControl]="searchControl"
+        placeholder="Digite para buscar"
+      />
+    </mat-form-field>
+  </div>
+
+  <div class="table-container">
+
+    @if (loading) {
+
+      <div class="table-loading">
+        <mat-spinner diameter="40"></mat-spinner>
+      </div>
+
+    } @else if (!data.length) {
+
+      <div class="table-empty">
+        {{ emptyMessage }}
+      </div>
+
+    } @else {
+
+      <table
+        mat-table
+        [dataSource]="data"
+        matSort
+        (matSortChange)="onSortChange($event)"
+      >
+
+        @for (
+          column of columns;
+          track trackByColumn($index, column)
+        ) {
+
+          @if (column.visible !== false) {
+
+            <ng-container
+              [matColumnDef]="column.key.toString()"
+            >
+
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+              >
+
+                @if (column.sortable) {
+
+                  <span
+                    [mat-sort-header]="column.key.toString()"
+                  >
+                    {{ column.label }}
+                  </span>
+
+                } @else {
+
+                  {{ column.label }}
+
+                }
+
+              </th>
+
+              <td
+                mat-cell
+                *matCellDef="let row"
+              >
+
+                @if (column.customTemplate) {
+
+                  <ng-container
+                    *ngTemplateOutlet="
+                      column.customTemplate;
+                      context: {
+                        $implicit: row
+                      }
+                    "
+                  >
+                  </ng-container>
+
+                } @else {
+
+                  {{ resolveValue(column, row) }}
+
+                }
+
+              </td>
+
+            </ng-container>
+
+          }
+
+        }
+
+        @if (actions.length) {
+
+          <ng-container matColumnDef="actions">
+
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+            >
+              Ações
+            </th>
+
+            <td
+              mat-cell
+              *matCellDef="let row"
+            >
+
+              <button
+                mat-icon-button
+                [matMenuTriggerFor]="menu"
+              >
+                <mat-icon>more_vert</mat-icon>
+              </button>
+
+              <mat-menu #menu="matMenu">
+
+                @for (
+                  action of actions;
+                  track action.label
+                ) {
+
+                  @if (!action.hidden?.(row)) {
+
+                    <button
+                      mat-menu-item
+                      [disabled]="action.disabled?.(row)"
+                      (click)="onActionClick(action, row)"
+                    >
+
+                      <mat-icon>
+                        {{ action.icon }}
+                      </mat-icon>
+
+                      <span>
+                        {{ action.label }}
+                      </span>
+
+                    </button>
+
+                  }
+
+                }
+
+              </mat-menu>
+
+            </td>
+
+          </ng-container>
+
+        }
+
+        <tr
+          mat-header-row
+          *matHeaderRowDef="displayedColumns()"
+        ></tr>
+
+        <tr
+          mat-row
+          *matRowDef="
+            let row;
+            columns: displayedColumns()
+          "
+        ></tr>
+
+      </table>
+
+    }
+
+  </div>
+
+  <mat-paginator
+    [length]="total"
+    [pageIndex]="pageIndex"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[10, 20, 50]"
+    (page)="onPageChange($event)"
+  >
+  </mat-paginator>
+
+</div>

@@ -1,0 +1,88 @@
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+
+  mat-form-field {
+    min-width: 200px;
+  }
+
+  .selected-date-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: gray;
+    font-size: 0.95rem;
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.next-appointment {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 20px;
+  border-left: 4px solid #1976d2;
+  background-color: #e3f2fd;
+
+  mat-icon {
+    color: #1976d2;
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+  }
+
+  .next-appointment-info {
+    display: flex;
+    flex-direction: column;
+
+    .next-appointment-label {
+      font-size: 0.8rem;
+      color: #1976d2;
+      font-weight: 500;
+    }
+
+    .next-appointment-value {
+      font-size: 1rem;
+      font-weight: bold;
+    }
+  }
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 48px;
+  color: gray;
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+  }
+
+  span {
+    font-size: 1rem;
+  }
+}
+
+.status-chip {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+
+  &--Agendado { background-color: #e3f2fd; color: #1976d2; }
+  &--Em\ andamento { background-color: #fff3e0; color: #f57c00; }
+  &--Concluído { background-color: #e8f5e9; color: #388e3c; }
+  &--Cancelado { background-color: #ffebee; color: #d32f2f; }
+}

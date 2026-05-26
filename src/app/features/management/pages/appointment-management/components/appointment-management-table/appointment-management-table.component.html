@@ -1,0 +1,12 @@
+<app-data-table
+  [data]="appointments()"
+  [columns]="columns"
+  [actions]="actions"
+  [loading]="loading()"
+  [total]="total()"
+  [pageSize]="10"
+  emptyMessage="Nenhum agendamento encontrado"
+  (queryChange)="onQueryChange($event)"
+  (actionClick)="onActionClick($event)"
+>
+</app-data-table>

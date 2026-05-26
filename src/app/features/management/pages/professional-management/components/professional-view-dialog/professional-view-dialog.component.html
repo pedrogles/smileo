@@ -1,0 +1,90 @@
+<div class="dialog">
+
+    <div class="dialog-header">
+
+        <h2 class="dialog-title">
+            Detalhes do profissional
+        </h2>
+
+    </div>
+
+    <div class="dialog-content">
+
+        <div class="info-item">
+            <span class="label">Nome</span>
+            <span class="value">
+                {{ professional.name }}
+            </span>
+        </div>
+
+        <div class="info-item">
+            <span class="label">CPF</span>
+            <span class="value">
+                {{ professional.cpf }}
+            </span>
+        </div>
+
+        <div class="info-item">
+            <span class="label">Telefone</span>
+            <span class="value">
+                {{ professional.phone }}
+            </span>
+        </div>
+
+        <div class="info-item">
+            <span class="label">E-mail</span>
+            <span class="value">
+                {{ professional.email }}
+            </span>
+        </div>
+
+        <div class="info-item">
+            <span class="label">Especialidade</span>
+            <span class="value">
+                {{ professional.specialty }}
+            </span>
+        </div>
+
+        <div class="info-item">
+            <span class="label">CRO</span>
+            <span class="value">
+                {{ professional.cro_number }}
+            </span>
+        </div>
+
+        <div class="info-item">
+            <span class="label">UF CRO</span>
+            <span class="value">
+                {{ professional.cro_state }}
+            </span>
+        </div>
+
+        <div class="info-item">
+            <span class="label">Status</span>
+
+            <span
+                class="status"
+                [class.active]="professional.is_active"
+            >
+                {{
+                    professional.is_active
+                        ? 'Ativo'
+                        : 'Inativo'
+                }}
+            </span>
+        </div>
+
+    </div>
+
+    <div class="dialog-actions">
+
+        <button
+            mat-stroked-button
+            mat-dialog-close
+        >
+            Fechar
+        </button>
+
+    </div>
+
+</div>

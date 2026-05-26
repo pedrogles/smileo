@@ -1,0 +1,12 @@
+<app-data-table
+  [data]="professionals()"
+  [columns]="columns"
+  [actions]="actions"
+  [loading]="loading()"
+  [total]="total()"
+  [pageSize]="10"
+  emptyMessage="Nenhum profissional encontrado"
+  (queryChange)="onQueryChange($event)"
+  (actionClick)="onActionClick($event)"
+>
+</app-data-table>

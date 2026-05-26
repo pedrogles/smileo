@@ -1,0 +1,86 @@
+.dialog {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2rem;
+
+    padding: 2rem;
+
+    min-width: 42rem;
+
+    background-color: white;
+}
+
+.dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dialog-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+
+    color: var(--text-primary);
+}
+
+.dialog-content {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 1.5rem;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+
+    gap: .5rem;
+}
+
+.label {
+    font-size: .85rem;
+
+    color: var(--text-secondary);
+}
+
+.value {
+    font-size: 1rem;
+
+    font-weight: 500;
+
+    color: var(--text-primary);
+}
+
+.description {
+    line-height: 1.5;
+}
+
+.price {
+    color: var(--primary);
+
+    font-weight: 600;
+}
+
+.dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+
+    .dialog {
+        min-width: auto;
+
+        width: 100%;
+    }
+
+    .dialog-content {
+        grid-template-columns: 1fr;
+    }
+}

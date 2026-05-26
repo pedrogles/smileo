@@ -1,0 +1,106 @@
+<form
+    class="form"
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+>
+
+    <div class="dialog-title">
+
+        <span class="title">
+            Editar serviço
+        </span>
+
+        <span class="description">
+            Atualize as informações do serviço.
+        </span>
+
+    </div>
+
+    <div class="form-grid">
+
+        <mat-form-field
+            appearance="outline"
+            class="full-width"
+        >
+
+            <mat-label>
+                Nome do serviço
+            </mat-label>
+
+            <input
+                matInput
+                formControlName="name"
+            />
+
+        </mat-form-field>
+
+        <mat-form-field
+            appearance="outline"
+            class="full-width"
+        >
+
+            <mat-label>
+                Descrição
+            </mat-label>
+
+            <textarea
+                matInput
+                rows="4"
+                formControlName="description"
+            >
+            </textarea>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+                Duração (minutos)
+            </mat-label>
+
+            <input
+                matInput
+                type="number"
+                formControlName="duration_minutes"
+            />
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+                Valor
+            </mat-label>
+
+            <input
+                matInput
+                type="number"
+                formControlName="price"
+            />
+
+        </mat-form-field>
+
+    </div>
+
+    <div class="dialog-actions">
+
+        <button
+            mat-stroked-button
+            type="button"
+            mat-dialog-close
+        >
+            Cancelar
+        </button>
+
+        <button
+            mat-flat-button
+            class="btn-submit"
+            type="submit"
+            [disabled]="form.invalid"
+        >
+            Salvar alterações
+        </button>
+
+    </div>
+
+</form>

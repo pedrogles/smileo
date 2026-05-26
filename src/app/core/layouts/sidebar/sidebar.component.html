@@ -1,0 +1,42 @@
+<aside id="aside">
+    <section class="up-section">
+        <article class="logo-article">
+            <img id="medical-logo" src="smileo.svg" alt="Logo do Smileo">
+        </article>
+        <mat-divider></mat-divider>
+        <nav class="menu">
+            <ul class="menu-list">
+                @for(item of menuItems; track item.key) {
+                    <li>
+                        @if(item.type === 'link') {
+                            <a class="menu-item" [routerLink]="item.route">
+                                <mat-icon aria-hidden="true" fontIcon="{{item.icon}}"></mat-icon>
+                                {{ item.label }}
+                            </a>
+                        } 
+                        @else if(item.type === 'submenu') {
+                            <button class="menu-item" matButton [matMenuTriggerFor]="menu">
+                                <mat-icon aria-hidden="true" fontIcon="{{item.icon}}"></mat-icon>
+                                {{item.label}}
+                            </button>
+                            <mat-menu #menu="matMenu" class="mat-menu-custom-sidebar">
+                                @for(option of item.children; track option.label) {
+                                    <button mat-menu-item [routerLink]="option.route">
+                                        {{option.label}}
+                                    </button>
+                                }
+                            </mat-menu>
+                        }
+                    </li>
+                }
+            </ul>
+        </nav>
+        <mat-divider></mat-divider>
+    </section>
+    <section class="down-section">
+        <button class="logout-btn" (click)="onLogout()">
+            <mat-icon aria-hidden="false" aria-label="Botão sair" fontIcon="logout"></mat-icon>
+            Logout
+        </button>
+    </section>
+</aside>

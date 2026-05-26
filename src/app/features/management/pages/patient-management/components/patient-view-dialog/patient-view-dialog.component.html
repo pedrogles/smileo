@@ -1,0 +1,53 @@
+<h2 mat-dialog-title>
+  Detalhes do paciente
+</h2>
+
+<mat-dialog-content>
+
+  <div class="details-grid">
+
+    <div class="detail-item">
+      <span class="label">Nome</span>
+      <span>{{ patient.name }}</span>
+    </div>
+
+    <div class="detail-item">
+      <span class="label">CPF</span>
+      <span>{{ patient.cpf }}</span>
+    </div>
+
+    <div class="detail-item">
+      <span class="label">Telefone</span>
+      <span>{{ patient.phone }}</span>
+    </div>
+
+    <div class="detail-item">
+      <span class="label">E-mail</span>
+      <span>{{ patient.email }}</span>
+    </div>
+
+    <div class="detail-item">
+      <span class="label">Possui alergias</span>
+      <span>
+        {{ patient.has_allergies ? 'Sim' : 'Não' }}
+      </span>
+    </div>
+
+    <div class="detail-item">
+      <span class="label">Comorbidades</span>
+      <span>
+        {{ patient.has_medical_conditions ? 'Sim' : 'Não' }}
+      </span>
+    </div>
+
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+
+  <button mat-button mat-dialog-close>
+    Fechar
+  </button>
+
+</mat-dialog-actions>

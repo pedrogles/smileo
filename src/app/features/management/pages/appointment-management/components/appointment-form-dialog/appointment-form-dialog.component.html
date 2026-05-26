@@ -1,0 +1,102 @@
+<form
+    class="form"
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+>
+
+    <div class="dialog-title">
+
+        <span class="title">
+            Editar agendamento
+        </span>
+
+        <span class="description">
+            Atualize as informações do agendamento.
+        </span>
+
+    </div>
+
+    <div class="form-grid">
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+                Data e horário
+            </mat-label>
+
+            <input
+                matInput
+                type="datetime-local"
+                formControlName="start_datetime"
+            />
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+                Status
+            </mat-label>
+
+            <mat-select
+                formControlName="status"
+            >
+
+                @for (
+                    status of statusOptions;
+                    track status.value
+                ) {
+
+                    <mat-option
+                        [value]="status.value"
+                    >
+                        {{ status.label }}
+                    </mat-option>
+                }
+
+            </mat-select>
+
+        </mat-form-field>
+
+        <mat-form-field
+            appearance="outline"
+            class="full-width"
+        >
+
+            <mat-label>
+                Observações
+            </mat-label>
+
+            <textarea
+                matInput
+                rows="4"
+                formControlName="notes"
+            >
+            </textarea>
+
+        </mat-form-field>
+
+    </div>
+
+    <div class="dialog-actions">
+
+        <button
+            mat-stroked-button
+            type="button"
+            mat-dialog-close
+        >
+            Cancelar
+        </button>
+
+        <button
+            mat-flat-button
+            class="btn-submit"
+            type="submit"
+            [disabled]="form.invalid"
+        >
+            Salvar alterações
+        </button>
+
+    </div>
+
+</form>

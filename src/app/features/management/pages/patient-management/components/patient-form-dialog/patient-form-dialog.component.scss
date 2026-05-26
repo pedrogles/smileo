@@ -1,0 +1,132 @@
+:host {
+    display: block;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    width: 100%;
+
+    padding: 2rem;
+
+    border-radius: .75rem;
+
+    background-color: var(--bg-surface);
+
+    .dialog-title {
+        display: flex;
+        flex-direction: column;
+        gap: .3rem;
+
+        margin-bottom: .5rem;
+
+        .title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .description {
+            font-size: .95rem;
+            color: var(--text-secondary);
+        }
+    }
+
+    .form-fieldset {
+        border: none;
+        padding: 0;
+        margin: 0;
+
+        .form-inputs {
+            display: grid;
+            gap: 1rem;
+
+            @media (min-width: 768px) {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .full-width {
+                grid-column: 1 / -1;
+            }
+
+            .form-input-checkbox {
+                display: flex;
+                flex-direction: column;
+                gap: .75rem;
+
+                padding: 1rem;
+
+                border-radius: .5rem;
+
+                background-color: var(--bg-primary);
+
+                border: solid .1rem var(--border-color);
+            }
+        }
+    }
+
+    .dialog-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+
+        margin-top: .5rem;
+
+        .btn-cancel {
+            height: 3rem;
+            min-width: 8rem;
+
+            border-radius: .5rem;
+        }
+
+        .btn-submit {
+            background-color: var(--primary);
+
+            border-radius: .5rem;
+
+            min-width: 10rem;
+
+            height: 3rem;
+
+            font-size: var(--text-base);
+
+            font-weight: 500;
+
+            &:not(:disabled) {
+                background-color: var(--primary);
+            }
+
+            &:hover:not(:disabled) {
+                background-color: var(--primary-hover);
+            }
+
+            &:disabled {
+                background-color: var(--btn-disabled-bg);
+
+                color: var(--btn-disabled-text);
+            }
+        }
+    }
+}
+
+/*
+  Angular Material Overrides
+*/
+
+::ng-deep .mat-mdc-dialog-container {
+    padding: 0 !important;
+
+    border-radius: 1rem !important;
+
+    overflow: hidden;
+}
+
+::ng-deep .mat-mdc-form-field {
+    width: 100%;
+}
+
+::ng-deep .mdc-text-field--outlined {
+    border-radius: .5rem;
+}
